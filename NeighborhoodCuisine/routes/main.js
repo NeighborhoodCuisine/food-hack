@@ -2,20 +2,30 @@ import React, { Component,
                 View,
                 Text,
                 StyleSheet } from 'react-native'
+import Filter from './Filter'
 
-class Main extends Component {
+
+export default class Main extends Component {
+  constructor(props) {
+    super(props)
+    this.routeToFilter = this.routeToFilter.bind(this)
+  }
+
   routeToFilter() {
-    console.log('route to filter')
+    this.props.navigator.push({
+      name: 'Filter',
+      component: Filter
+    })
   }
 
   render() {
-    console.log('render me')
     return (
-      <View>
+      <View style={styles.main}>
         <Text style={styles.headline}>Hungry?</Text>
         <Text
           onPress={this.routeToFilter}
-          style={styles.button}>Find your Food Mates.
+          style={styles.button}>
+          Find your Food Mates.
         </Text>
       </View>
     )
@@ -23,8 +33,7 @@ class Main extends Component {
 }
 
 const styles = StyleSheet.create({
+  main: { backgroundColor: 'red' },
   headline: {},
   button: {}
 })
-
-module.exports = Main
