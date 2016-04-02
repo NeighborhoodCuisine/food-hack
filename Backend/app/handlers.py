@@ -1,6 +1,9 @@
 from flask_restful import Resource
 from flask import request, jsonify
-from app.credentials import access_token
+try:
+    from app.credentials import access_token
+except:
+    from app.credentials_default import access_token
 from app.model import ActiveUsers
 import requests
 
