@@ -28,19 +28,35 @@ class ActiveUsers:
                 self.users.remove(user)
                 break
 
-    def joined_ingredients(self):
-        ingredients = [u.ingredients for u in self.users]
+    @classmethod
+    def _joined_ingredients(cls, users):
+        ingredients = [u.ingredients for u in users]
         ingredients = [i for u in ingredients for i in u]
         ingredients = [i.lower() for i in ingredients]
         return list(set(ingredients))
+
+    def joined_ingredients(self):
+        return self._joined_ingredients(self.users)
+
+    def _get_combinations(self):
+        subsets = []
+        for i in range(MIN_GUESTS, MAX_GUESTS+1):
+            subsets.append([l for l in combinations(self.users, i)])
+        return subsets
+
+    @classmethod
+    def _filter_combinations(cls, sets):
+        return [l for l in sets if len(sets) <= max(u for u in l)]
 
     def subset_ingredients(self):
         # 1. get all subsets of guests
         # 2. filter such that we have a capable host
         # 3. return ingredients of all such group of guests
-        subsets = []
-        for i in range(MIN_GUESTS, MAX_GUESTS+1):
-            subsets.append([l for l in combinations(self.users, i)])
+        subsets = self._get_combinations()
+        allowed_groups = self._filter_combinations(subsets)
+
+
+
 
 
 class User:
