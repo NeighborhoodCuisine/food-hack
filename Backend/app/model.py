@@ -5,7 +5,7 @@ from app.recipes import RecipeProvider
 from app.utils import distance
 
 
-MIN_GUESTS = 3
+MIN_GUESTS = 1
 MAX_GUESTS = 8
 
 
@@ -93,6 +93,13 @@ class ActiveUsers:
 
         return options
 
+    @classmethod
+    def _enrich_recipe(cls, recipe):
+        info = RecipeProvider.recipe_info(recipe['id'])
+        summary = RecipeProvider.recipe_summary(recipe['id'])
+        recipe.update(info)
+        recipe.update(summary)
+
     def get_best_permutation(self):
         users = [u for u in self.users if u.active]
         subsets = self._get_combinations(users)
@@ -101,6 +108,7 @@ class ActiveUsers:
         possible_groups.sort(key=lambda r: r['recipe'].get('likes'),
                              reverse=True)
         best = possible_groups[0]
+        self._enrich_recipe(best['recipe'])
         print(best)
         return best
 
@@ -128,6 +136,8 @@ class User:
         self.fb_link = data.get('fb_link')
         self.image_url = data.get('small_image_url')
         self.fb_token = data.get('fb_token')
+        self.location = [data.get('location').get('lat', 0),
+                         data.get('location').get('lon', 0)]
 
     def _set_dispatch(self, data, source):
         if source == 'fb':

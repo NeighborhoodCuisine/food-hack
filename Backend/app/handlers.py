@@ -27,14 +27,19 @@ class Session(Resource):
 
 class Match(Resource):
     @staticmethod
-    def get():
-        #active_users.get_best_permutation()
-        ingredients = ','.join(active_users.joined_ingredients())
-        recipe = RecipeProvider.best_recipe(ingredients)
-        if recipe:
-            return RecipeProvider.recipe_info(recipe['id'])
+    def post():
+        user = request.get_json()['id']
+        data = active_users.get_best_permutation()
+        if user in [u.identifier for u in data['group']]:
+            return data['recipe']
         else:
             return {}
+
+    @classmethod
+    def old_code(self):
+        ingredients = ','.join(active_users.joined_ingredients())
+        recipe = RecipeProvider.best_recipe(ingredients)
+
 
 class NearByUsers(Resource):
     @staticmethod

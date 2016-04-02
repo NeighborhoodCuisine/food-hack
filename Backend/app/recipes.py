@@ -15,7 +15,7 @@ class RecipeProvider:
     @classmethod
     def params(cls, ingredients):
         params = {
-            'ingredients': ingredients,
+            'ingredients': ','.join(ingredients),
             'limitLicense': False,
             'ranking': 2,
             'number': 1000
@@ -37,6 +37,7 @@ class RecipeProvider:
         params = {
             'includeNutrition': False
         }
+        summary = cls.recipe_summary(_id)
         return requests.get(cls.base_url + '/recipes/{}/information'.format(_id),
                             headers=cls.headers, params=params).json()
 
