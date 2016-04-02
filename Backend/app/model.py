@@ -19,12 +19,12 @@ class ActiveUsers:
     def __str__(self):
         return str(self.users)
 
-    def add_user(self, data):
+    def add_user(self, data, source):
         for user in self.users:
-            if user.merge(data):
+            if user.merge(data, source):
                 return
 
-        self.users.append(User(data))
+        self.users.append(User(data, source))
 
     def remove_user(self, identifier):
         for user in self.users:
@@ -40,12 +40,13 @@ class ActiveUsers:
         return list(set(ingredients))
 
     def joined_ingredients(self):
-        return self._joined_ingredients(self.users)
+        return self._joined_ingredients([u for u in self.users if u.active])
 
-    def _get_combinations(self):
+    @classmethod
+    def _get_combinations(cls, users):
         subsets = []
         for i in range(MIN_GUESTS, MAX_GUESTS+1):
-            subsets.append([l for l in combinations(self.users, i)])
+            subsets.append([l for l in combinations(users, i)])
         return [s for sub in subsets for s in sub if sub]
 
     @classmethod
@@ -55,7 +56,6 @@ class ActiveUsers:
     @classmethod
     def _find_recipes(cls, subsets):
         ingredients = [g['ingredients'] for g in subsets]
-        print(len(ingredients))
         fetch_list = (grequests.get(
             RecipeProvider.recipe_list, headers=RecipeProvider.headers,
             params=RecipeProvider.params(ing)) for ing in ingredients)
@@ -83,10 +83,10 @@ class ActiveUsers:
         return options
 
     def get_best_permutation(self):
-        subsets = self._get_combinations()
+        users = [u for u in self.users if u.active]
+        subsets = self._get_combinations(users)
         subsets = self._filter_combinations(subsets)
         possible_groups = self._calculate_ingredients(subsets)
-        print(possible_groups)
         possible_groups.sort(key=lambda r: r['recipe'].get('likes'),
                              reverse=True)
         best = possible_groups[0]
@@ -95,26 +95,45 @@ class ActiveUsers:
 
 class User:
 
-    def __init__(self, data):
-        self.name = data.get('user')
+    def __init__(self, data, source):
+        assert data.get('id') is not None
+        self.identifier = data.get('id')
+        self.active = False
+        self._set_dispatch(data, source)
+
+    def _set_session(self, data):
         self.location = [data.get('location').get('lat', 0),
                          data.get('location').get('lon', 0)]
         self.cuisine = data.get('cuisine', '')
         self.max_guests = data.get('max_guests', 0)
         self.ingredients = data.get('ingredients', [])
+        self.active = True
+
+    def _set_facebook(self, data):
+        self.email = data.get('email')
+        self.first_name = data.get('first_name')
+        self.last_name = data.get('last_name')
+        self.fb_link = data.get('fb_link')
+        self.image_url = data.get('small_image_url')
+        self.fb_token = data.get('fb_token')
+
+    def _set_dispatch(self, data, source):
+        if source == 'fb':
+            self._set_session(data)
+        elif source == 'ses':
+            self._set_session(data)
+        else:
+            raise Exception('Invalid source')
 
     def __repr__(self):
         return str(self)
 
     def __str__(self):
-        return self.name
+        return self.identifier
 
-    def merge(self, data):
-        if self.name != data.get('user'):
+    def merge(self, data, source):
+        if self.identifier != data.get('id'):
             return False
         else:
-            self.location = [data.get('lat'), data.get('lon')]
-            self.cuisine = data.get('cuisine')
-            self.max_guests = data.get('max_guests')
-            self.ingredients = data.get('ingredients')
+            self._set_dispatch(data, source)
             return True

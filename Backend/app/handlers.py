@@ -11,18 +11,23 @@ class Session(Resource):
     @staticmethod
     def put():
         data = request.get_json()
-        print(data)
-        active_users.add_user(data)
-        print(active_users)
-        print(active_users.joined_ingredients())
+        active_users.add_user(data, 'ses')
 
 
 class Match(Resource):
-    @classmethod
-    def get(cls):
+    @staticmethod
+    def get():
+        active_users.get_best_permutation()
         ingredients = ','.join(active_users.joined_ingredients())
         recipe = RecipeProvider.best_recipe(ingredients)
         if recipe:
             return RecipeProvider.recipe(recipe['id'])
         else:
             return {}
+
+
+class InitUser(Resource):
+    @staticmethod
+    def put():
+        data = request.get_json()
+        active_users.add_user(data, 'fb')

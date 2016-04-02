@@ -10,7 +10,7 @@ api = Api(app)
 
 
 @app.errorhandler(404)
-def not_found(error):
+def not_found(_):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 api.add_resource(Session, '/session')
