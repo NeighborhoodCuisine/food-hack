@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 10
   }
-})
+});
 
 const routeMapper = {
   LeftButton(route, navigator, index, navState) {
@@ -100,4 +100,4 @@ const routeMapper = {
     const title = route.title || 'Neighborhood Cuisine'
     return <Text style={[CommonStyles.text, styles.title]}>{title}</Text>
   }
-}
+};
