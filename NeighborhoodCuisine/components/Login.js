@@ -1,18 +1,46 @@
 import React, { Component, View, Text, NativeModules, StyleSheet } from 'react-native'
 import FBLogin from 'react-native-facebook-login'
 import Store from '../lib/Store'
-
-const loginEndpoint = "http://example.com"
+import { ENDPOINT } from '../lib/Endpoint'
 
 export default class Login extends Component {
   onLogin(data, callback) {
     console.log('Facebook Data', data)
     Store.store('login', data)
 
-    fetch(loginEndpoint, {
-      method: 'POST',
-      data: data
-    }).then(callback)
+    // --- post user data and location to server
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let payload = {
+          id: data.credentials.userId,
+          fb_token: data.credentials.token,
+          location: {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }
+        }
+        let form = new FormData()
+        form.append('json', JSON.stringify(payload))
+
+        fetch(ENDPOINT + '/user', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: data.credentials.userId,
+            fb_token: data.credentials.token,
+            location: {
+              lat: position.coords.latitude,
+              lon: position.coords.longitude
+            }
+          })
+        }).then(callback)
+      },
+      (error) => console.error(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    )
   }
 
   render() {
