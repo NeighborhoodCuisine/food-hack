@@ -17,3 +17,10 @@ def distance(first, second, r=EARTH_RADIUS):
              sin(delta_lon/2) ** 2)
         )
     return d
+
+
+def contains(l, e):
+    for elem in l:
+        if elem in e or e in elem:
+            return True
+    return False

@@ -31,7 +31,10 @@ class Match(Resource):
         user = request.get_json()['id']
         data = active_users.get_best_permutation()
         if user in [u.identifier for u in data['group']]:
-            return data['recipe']
+            active_users.enrich_missing_ingredients(data)
+            active_users.enrich_user_data(data)
+            print(data)
+            return data
         else:
             return {}
 

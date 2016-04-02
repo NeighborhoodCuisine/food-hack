@@ -1,11 +1,12 @@
 from itertools import combinations
 import grequests
+import copy
 
 from app.recipes import RecipeProvider
-from app.utils import distance
+from app.utils import distance, contains
 
 
-MIN_GUESTS = 1
+MIN_GUESTS = 3
 MAX_GUESTS = 8
 
 
@@ -100,6 +101,28 @@ class ActiveUsers:
         recipe.update(info)
         recipe.update(summary)
 
+    def enrich_user_data(self, data):
+        users = copy.deepcopy(data['group'])
+        data['group'] = []
+        for user in users:
+            data['group'].append({
+                'id': user.identifier,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'image': user.image_url,
+                'brings': user.ingredients
+            })
+
+    @classmethod
+    def enrich_missing_ingredients(cls, data):
+        ingredients = data['ingredients']
+        required = data['recipe']['extendedIngredients']
+        missing = []
+        for ing in required:
+            if not contains(ingredients, ing['name']):
+                missing.append(ing['name'])
+        data['missing'] = missing
+
     def get_best_permutation(self):
         users = [u for u in self.users if u.active]
         subsets = self._get_combinations(users)
@@ -119,7 +142,16 @@ class User:
         assert data.get('id') is not None
         self.identifier = data.get('id')
         self.active = False
+        self._set_initial()
         self._set_dispatch(data, source)
+
+    def _set_initial(self):
+        self.email = ''
+        self.first_name = ''
+        self.last_name = ''
+        self.fb_link = ''
+        self.image_url = ''
+        self.fb_token = ''
 
     def _set_session(self, data):
         self.location = [data.get('location').get('lat', 0),
