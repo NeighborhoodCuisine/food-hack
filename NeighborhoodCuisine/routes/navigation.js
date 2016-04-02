@@ -8,7 +8,7 @@ import React, {
   ScrollView,
   TouchableHighlight } from 'react-native'
 import Welcome from './Welcome'
-
+import MenuButton from '../components/MenuButton'
 
 export default class Navigation extends Component {
   renderScene(route, navigator) {
@@ -24,7 +24,7 @@ export default class Navigation extends Component {
       <Image style={styles.overlay} source={require('../images/Overlay.png')} />
       <ScrollView style={styles.scene}>
         <RouteComponent navigator={navigator} {...route.passProps} />
-        </ScrollView>
+      </ScrollView>
     </View>
   }
 
@@ -81,12 +81,19 @@ const routeMapper = {
       <Text>{backButtonText}</Text>
     </TouchableHighlight>
   },
-  RightButton() { return null },
+  RightButton(route, navigator) {
+    if (route.name !== 'Main') {
+      return null
+    }
+
+    return <MenuButton navigator={navigator}/>
+  },
   Title(route) {
     if (route.hide || route.hideRight) {
       return null
     }
+    const title = route.title || 'Neighborhood Cuisine'
 
-    return <Text style={styles.title}>Neighborhood Cuisine</Text>
+    return <Text style={styles.title}>{title}</Text>
   }
 }
