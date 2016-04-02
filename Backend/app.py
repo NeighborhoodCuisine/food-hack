@@ -4,6 +4,7 @@ from flask_restful import Api
 
 from app.handlers import Session, Ingredients
 
+
 app = Flask(__name__, static_url_path="")
 api = Api(app)
 

@@ -1,7 +1,9 @@
 from flask_restful import Resource
 from flask import request
-import requests
-from app.credentials import *
+
+from app.model import ActiveUsers
+
+active_users = ActiveUsers()
 
 
 class Session(Resource):
@@ -9,6 +11,8 @@ class Session(Resource):
     def post():
         data = request.get_json()
         print(data)
+        active_users.add_user(data)
+        print(active_users)
 
 
 class Ingredients(Resource):

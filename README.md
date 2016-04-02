@@ -13,7 +13,7 @@
 
 ```javascript
 body = {
-  'user': '', //id for user
+  'user': string, //id for user
   'ingredients': ['eggplant', 'beef'],
   'location': {
     'lat': int,
@@ -21,5 +21,22 @@ body = {
   },
   'cuisine': '',
   'max_guests': int, //zero means does not want to be a host
+}
+```
+
+```javascript
+user = {
+  'id': string,
+  'email': string,
+  'first_name': string,
+  'last_name': string,
+  'fb_link': string,
+  'small_image_url': string,
+  'fb_token': string,
+  'age_range': {
+    'max': int,
+    'min': int
+  },
+  'gender': 'male' | 'female' // I guess
 }
 ```
