@@ -27,7 +27,7 @@ class ActiveUsers:
 class User:
 
     def __init__(self, data):
-        self.name = data.get('name')
+        self.name = data.get('user')
         self.location = [data.get('lat'), data.get('lon')]
         self.cuisine = data.get('cuisine')
         self.max_guest = data.get('max_guests')
@@ -43,7 +43,7 @@ class User:
         return ident
 
     def merge(self, data):
-        if self.name != data.get('name'):
+        if self.name != data.get('user'):
             return False
         else:
             self.location = [data.get('lat'), data.get('lon')]
