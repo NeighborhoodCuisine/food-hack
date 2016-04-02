@@ -3,6 +3,7 @@ import React, {
   Component,
   StyleSheet,
   Text,
+  Image,
   View,
   ScrollView,
   TouchableHighlight } from 'react-native'
@@ -16,9 +17,14 @@ export default class Navigation extends Component {
     }
 
     let RouteComponent = route.component
-    return <ScrollView style={styles.scene}>
-      <RouteComponent navigator={navigator} {...route.passProps} />
-    </ScrollView>
+    let backgroundImage = route.backgroundImage || require('../images/Background-Main.png')
+    return <View>
+      <Image style={styles.overlay} source={backgroundImage} />
+      <Image style={styles.overlay} source={require('../images/Overlay.png')} />
+      <ScrollView style={styles.scene}>
+        <RouteComponent navigator={navigator} {...route.passProps} />
+        </ScrollView>
+    </View>
   }
 
   render() {
@@ -33,6 +39,12 @@ export default class Navigation extends Component {
 const styles = StyleSheet.create({
   container: {
     // alignItems: 'center'
+  },
+  overlay: {
+    flex: 1,
+    resizeMode: 'cover',
+    top: 0,
+    position: 'absolute'
   },
   navBar: {
     marginVertical: 10

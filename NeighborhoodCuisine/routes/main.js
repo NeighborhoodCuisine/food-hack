@@ -1,9 +1,11 @@
 import React, { Component,
                 View,
                 Text,
-                StyleSheet } from 'react-native'
+                StyleSheet,
+                Image,
+                TouchableHighlight } from 'react-native'
 import Filter from './Filter'
-
+import CommonStyles from '../components/Styles'
 
 export default class Main extends Component {
   constructor(props) {
@@ -22,19 +24,27 @@ export default class Main extends Component {
   render() {
     return (
       <View style={styles.main}>
-        <Text style={styles.headline}>Hungry?</Text>
-        <Text
-          onPress={this.routeToFilter}
-          style={styles.button}>
-          Find your Food Mates.
-        </Text>
+        <Text style={[CommonStyles.text, CommonStyles.heading, CommonStyles.textPadding]}>Welcome to</Text>
+        <Text style={[CommonStyles.text, CommonStyles.heading, CommonStyles.textPadding]}>Neighborhood Cuisine</Text>
+        <Text style={[
+          CommonStyles.text,
+          CommonStyles.textPadding,
+          CommonStyles.subheading,
+          styles.spacing
+        ]}>Get ready to dine.</Text>
+        <TouchableHighlight onPress={this.routeToFilter}>
+          <Text>Login with Facebook</Text>
+        </TouchableHighlight>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  main: { backgroundColor: 'red' },
+  main: {},
   headline: {},
-  button: {}
+  button: {},
+  spacing: {
+    paddingTop: 8
+  }
 })
