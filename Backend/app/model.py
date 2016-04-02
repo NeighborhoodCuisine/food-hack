@@ -4,6 +4,7 @@ from itertools import combinations
 MIN_GUESTS = 3
 MAX_GUESTS = 8
 
+
 class ActiveUsers:
 
     def __init__(self):
@@ -49,14 +50,15 @@ class ActiveUsers:
         return [l for l in sets if len(sets) <= max(u for u in l)]
 
     def subset_ingredients(self):
-        # 1. get all subsets of guests
-        # 2. filter such that we have a capable host
-        # 3. return ingredients of all such group of guests
         subsets = self._get_combinations()
         allowed_groups = self._filter_combinations(subsets)
-
-
-
+        options = []
+        for group in allowed_groups:
+            options.append({
+                'group': group,
+                'ingredients': self._joined_ingredients(group)
+            })
+        return options
 
 
 class User:
