@@ -1,17 +1,18 @@
-from flask_restful import Resource, reqparse
-
-parser = reqparse.RequestParser()
-parser.add_argument('test')
-parser.add_argument('ses')
+from flask_restful import Resource
+from flask import request
+import requests
+from app.credentials import *
 
 
 class Session(Resource):
-
-    @staticmethod
-    def get():
-        return {'get': 'test'}
-
     @staticmethod
     def post():
-        data = parser.parse_args()
+        data = request.get_json()
         print(data)
+
+
+class Ingredients(Resource):
+    @staticmethod
+    def get():
+        return {}
+
