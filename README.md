@@ -13,17 +13,19 @@
 
 ```javascript
 body = {
-  'user': string, //id for user
+  'id': string, //id for user
   'ingredients': ['eggplant', 'beef'],
   'location': {
-    'lat': int,
-    'lon': int,
+    'lat': float,
+    'lon': float,
   },
-  'cuisine': '',
+  'cuisine': string,
   'max_guests': int, //zero means does not want to be a host
 }
 ```
 
+
+**Definition of a request body for instantiating a user. The user data is extracted from facebook.**
 ```javascript
 user = {
   'id': string,
