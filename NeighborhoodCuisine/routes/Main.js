@@ -52,9 +52,15 @@ export default class Main extends Component {
 
       <Text style={[CommonStyles.text, CommonStyles.heading]}>Hi {this.state.name},</Text>
       <Text style={[CommonStyles.text, CommonStyles.heading]}>are you hungry?</Text>
-      <TouchableHighlight onPress={this.routeToFilter.bind(this)}>
-        <Text>Filter</Text>
-      </TouchableHighlight>
+
+      <View style={styles.button}>
+        <TouchableHighlight
+          onPress={this.routeToFilter.bind(this)}>
+          <Text style={[CommonStyles.text, styles.go]}>Let's cook!</Text>
+        </TouchableHighlight>
+      </View>
+      <Text style={[CommonStyles.text, styles.highlighted]}>3 hungry people nearby.</Text>
+
     </View>
   }
 }
@@ -66,16 +72,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   profileBackground: {
-    borderRadius: 37,
-    width: 74,
-    height: 74,
+    borderRadius: 38,
+    width: 76,
+    height: 76,
     backgroundColor: '#6C56B7',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12
   },
   profile: {
     borderRadius: 36,
     width: 72,
-    height: 72,
-    alignSelf: 'center',
-    justifyContent: 'center'
+    height: 72
+  },
+  button: {
+    marginTop: 78,
+    backgroundColor: '#6C56B7',
+    borderRadius: 50,
+    padding: 16
+  },
+  go: {
+    fontSize: 18
+  },
+  highlighted: {
+    marginTop: 4
   }
 })
