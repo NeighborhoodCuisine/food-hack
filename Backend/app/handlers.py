@@ -13,6 +13,7 @@ class Session(Resource):
     def post():
         data = request.get_json()
         active_users.add_user(data)
+        print(active_users)
 
 
 class Ingredients(Resource):

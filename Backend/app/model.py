@@ -3,6 +3,12 @@ class ActiveUsers:
     def __init__(self):
         self.users = []
 
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        return '--'.join(self.nodes)
+
     def add_user(self, data):
 
         for user in self.users:
@@ -26,6 +32,15 @@ class User:
         self.cuisine = data.get('cuisine')
         self.max_guest = data.get('max_guests')
         self.ingredients = data.get('ingredients')
+
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        ident = self.name + ': '
+        ident += ', '.join(self.location + [self.cuisine, self.max_guest] +
+                          self.ingredients)
+        return ident
 
     def merge(self, data):
         if self.name != data.get('name'):
