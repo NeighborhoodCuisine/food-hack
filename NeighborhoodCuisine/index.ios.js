@@ -11,6 +11,8 @@ import React, {
   View
 } from 'react-native';
 
+import Main from './routes/main'
+
 class NeighborhoodCuisine extends Component {
   render() {
     return (
@@ -25,6 +27,7 @@ class NeighborhoodCuisine extends Component {
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        <Main />
       </View>
     );
   }
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#9ECE9A',
   },
   welcome: {
     fontSize: 20,

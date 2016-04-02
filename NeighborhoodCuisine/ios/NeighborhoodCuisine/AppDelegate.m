@@ -27,7 +27,7 @@
    *
    * To run on device, change `localhost` to the IP address of your computer
    * (you can get this by typing `ifconfig` into the terminal and selecting the
-   * `inet` value under `en0:`) and make sure your computer and iOS device are
+   * `inet` value under `en0:`) and make surre your computer and iOS device are
    * on the same Wi-Fi network.
    */
 
