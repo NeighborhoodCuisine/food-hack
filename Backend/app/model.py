@@ -39,7 +39,7 @@ class User:
     def __str__(self):
         ident = self.name + ': '
         ident += ', '.join(self.location + [self.cuisine, self.max_guest] +
-                          self.ingredients)
+                           self.ingredients)
         return ident
 
     def merge(self, data):
