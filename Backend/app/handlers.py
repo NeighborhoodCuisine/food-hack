@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask import request, jsonify
+from flask import request
 from app.credentials import access_token
 from app.model import ActiveUsers
 import requests
@@ -27,7 +27,7 @@ class Match(Resource):
     @staticmethod
     def get():
         ingredients = ','.join(active_users.joined_ingredients())
-        header = {
+        headers = {
             'X-Mashape-Key': access_token,
             'Accept': 'application/json'
         }
@@ -36,6 +36,6 @@ class Match(Resource):
             'limitLicense': False,
             'ranking': 2
         }
-        response = requests.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients',
-                                header=header, params=params).json()
-        return jsonify(response)
+        recipes = requests.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients',
+                               headers=headers, params=params).json()
+        return recipes
