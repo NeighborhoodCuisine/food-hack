@@ -8,11 +8,12 @@ active_users = ActiveUsers()
 
 class Session(Resource):
     @staticmethod
-    def post():
+    def put():
         data = request.get_json()
         print(data)
         active_users.add_user(data)
         print(active_users)
+        print(active_users.joined_ingredients())
 
 
 class Ingredients(Resource):
