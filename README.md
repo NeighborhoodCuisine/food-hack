@@ -22,6 +22,10 @@ body = {
   'cuisine': string,
   'max_guests': int, //zero means does not want to be a host
 }
+
+cuisine_options = [african, chinese, japanese, korean, vietnamese, thai, indian, british, 
+  irish, french, italian, mexican, spanish, middle eastern, jewish, american, cajun, 
+  southern, greek, german, nordic, eastern european, caribbean, or latin american]
 ```
 
 
