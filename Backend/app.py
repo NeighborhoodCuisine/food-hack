@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask import make_response
 from flask_restful import Api
 
-from Backend.app.handlers import Session
+from app.handlers import Session
 
 app = Flask(__name__, static_url_path="")
 api = Api(app)
