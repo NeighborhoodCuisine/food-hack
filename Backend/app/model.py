@@ -22,6 +22,12 @@ class ActiveUsers:
                 self.users.remove(user)
                 break
 
+    def joined_ingredients(self):
+        ingredients = [u.ingredients for u in self.users]
+        ingredients = [i for u in ingredients for i in u]
+        ingredients = [i.lower() for i in ingredients]
+        return list(set(ingredients))
+
 
 class User:
 
