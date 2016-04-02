@@ -9,6 +9,7 @@ import React, {
   TouchableHighlight } from 'react-native'
 import Welcome from './Welcome'
 import MenuButton from '../components/MenuButton'
+import CommonStyles from '../components/Styles'
 
 export default class Navigation extends Component {
   renderScene(route, navigator) {
@@ -93,7 +94,6 @@ const routeMapper = {
       return null
     }
     const title = route.title || 'Neighborhood Cuisine'
-
-    return <Text style={styles.title}>{title}</Text>
+    return <Text style={[CommonStyles.text, styles.title]}>{title}</Text>
   }
 }

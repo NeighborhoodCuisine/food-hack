@@ -27,6 +27,7 @@ export default class MenuButton extends Component {
 
 const styles = StyleSheet.create({
   menuButton: {
-
+    marginTop: 10,
+    marginRight: 16
   }
 })
