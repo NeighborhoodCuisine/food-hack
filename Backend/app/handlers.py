@@ -25,14 +25,18 @@ class Match(Resource):
     }
 
     @classmethod
-    def possible_recipes(cls, ingredients):
+    def best_recipe(cls, ingredients):
         params = {
             'ingredients': ingredients,
             'limitLicense': False,
             'ranking': 2
         }
-        return requests.get(cls.base_url + '/recipes/findByIngredients',
-                            headers=cls.headers, params=params).json()
+        recipes = requests.get(cls.base_url + '/recipes/findByIngredients',
+                               headers=cls.headers, params=params).json()
+        if not recipes:
+            return None
+        recipe = recipes.sort(key=lambda r: r.get('likes'), reverse=True)[0]
+        return recipe
 
     @classmethod
     def recipe(cls, _id):
@@ -45,10 +49,8 @@ class Match(Resource):
     @classmethod
     def get(cls):
         ingredients = ','.join(active_users.joined_ingredients())
-        recipes = cls.possible_recipes(ingredients)
-        if not recipes:
+        recipe = cls.best_recipe(ingredients)
+        if recipe:
+            return cls.recipe(recipe['id'])
+        else:
             return {}
-        recipes.sort(key=lambda r: r.get('likes'), reverse=True)
-        best_recipe = recipes[0]
-        recipe = cls.recipe(best_recipe['id'])
-        return recipe
