@@ -1,4 +1,5 @@
 from itertools import combinations
+import grequests
 
 from app.recipes import RecipeProvider
 
@@ -52,23 +53,44 @@ class ActiveUsers:
         return [l for l in sets if len(l) <= max(u.max_guests for u in l)]
 
     @classmethod
+    def _find_recipes(cls, subsets):
+        ingredients = [g['ingredients'] for g in subsets]
+        print(len(ingredients))
+        fetch_list = (grequests.get(
+            RecipeProvider.recipe_list, headers=RecipeProvider.headers,
+            params=RecipeProvider.params(ing)) for ing in ingredients)
+        recipes = grequests.map(fetch_list, size=50)
+        recipes = [r.json() for r in recipes]
+        for recipe_list in recipes:
+            recipe_list.sort(key=lambda r: r.get('likes'), reverse=True)
+        return [r[0] for r in recipes]
+
+    @classmethod
     def _calculate_ingredients(cls, subsets):
         options = []
         for group in subsets:
             ingredients = cls._joined_ingredients(group)
             options.append({
                 'group': group,
-                'ingredients': ingredients,
-                'recipe': RecipeProvider.best_recipe(ingredients)
+                'ingredients': ingredients
             })
+
+        result = cls._find_recipes(options)
+
+        for i, group in enumerate(options):
+            group['recipe'] = result[i]
+
         return options
 
-    def subset_ingredients(self):
+    def get_best_permutation(self):
         subsets = self._get_combinations()
         subsets = self._filter_combinations(subsets)
-        print(subsets, 'after')
         possible_groups = self._calculate_ingredients(subsets)
         print(possible_groups)
+        possible_groups.sort(key=lambda r: r['recipe'].get('likes'),
+                             reverse=True)
+        best = possible_groups[0]
+        return best
 
 
 class User:

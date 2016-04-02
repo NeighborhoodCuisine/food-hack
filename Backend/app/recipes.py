@@ -10,6 +10,16 @@ class RecipeProvider:
         'X-Mashape-Key': access_token,
         'Accept': 'application/json'
     }
+    recipe_list = base_url + '/recipes/findByIngredients'
+
+    @classmethod
+    def params(cls, ingredients):
+        params = {
+            'ingredients': ingredients,
+            'limitLicense': False,
+            'ranking': 2
+        }
+        return params
 
     @classmethod
     def best_recipe(cls, ingredients):
