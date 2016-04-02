@@ -1,31 +1,38 @@
-class Users:
+class ActiveUsers:
 
     def __init__(self):
         self.users = []
 
-    def add_user(self, identifier, lat, lon, cuisine, max_guest=0,
-                 ingredients=None):
-        # find user if exists and update data
-        # otherwise add new user to users
-        pass
+    def add_user(self, data):
+
+        for user in self.users:
+            if user.merge(data):
+                return
+
+        self.users.append(User(data))
 
     def remove_user(self, identifier):
-        # remove user by identifier
-        pass
+        for user in self.users:
+            if user.name == identifier:
+                self.users.remove(user)
+                break
 
 
 class User:
 
-    def __init__(self, identifier, lat, lon, cuisine, max_guest=0,
-                 ingredients=None):
-        self.name = identifier
-        self.location = [lat, lon]
-        self.cuisine = cuisine
-        self.max_guest = max_guest
-        self.ingredients = ingredients
+    def __init__(self, data):
+        self.name = data.get('name')
+        self.location = [data.get('lat'), data.get('lon')]
+        self.cuisine = data.get('cuisine')
+        self.max_guest = data.get('max_guests')
+        self.ingredients = data.get('ingredients')
 
-    def update(self, lat, lon, cuisine, max_guest=0, ingredients=None):
-        self.location = [lat, lon]
-        self.cuisine = cuisine
-        self.max_guest = max_guest
-        self.ingredients = ingredients if ingredients else []
+    def merge(self, data):
+        if self.name != data.get('name'):
+            return False
+        else:
+            self.location = [data.get('lat'), data.get('lon')]
+            self.cuisine = data.get('cuisine')
+            self.max_guest = data.get('max_guests')
+            self.ingredients = data.get('ingredients')
+            return True
