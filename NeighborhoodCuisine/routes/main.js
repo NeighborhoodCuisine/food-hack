@@ -14,7 +14,8 @@ export default class Main extends Component {
   routeToFilter() {
     this.props.navigator.push({
       name: 'Filter',
-      component: Filter
+      component: Filter,
+      backButtonText: 'Cancel'
     })
   }
 

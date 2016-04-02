@@ -60,10 +60,12 @@ const routeMapper = {
       return null
     }
 
+    const backButtonText = route.backButtonText || "< Back"
+
     return <TouchableHighlight
       underlayColor="transparent"
       onPress={() => { if (index > 0) { navigator.pop() }}}>
-      <Text>&lt; Back</Text>
+      <Text>{backButtonText}</Text>
     </TouchableHighlight>
   },
   RightButton() { return null },
