@@ -31,7 +31,7 @@ user = {
   'first_name': string,
   'last_name': string,
   'fb_link': string,
-  'small_image': string,
+  'small_image_url': string,
   'fb_token': string,
   'age_range': {
     'max': int,
