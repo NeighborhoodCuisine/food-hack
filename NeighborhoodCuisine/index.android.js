@@ -8,24 +8,42 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  NativeModules
 } from 'react-native';
 
+import Login from './components/Login'
+import Navigation from './routes/navigation'
+
+const FBLoginManager = NativeModules.FBLoginManager; // if needed
+
 class NeighborhoodCuisine extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { isLoggedIn: false }
+  }
+
+  componentWillMount() {
+    FBLoginManager.logout((msg) => {
+      console.log(msg)
+    })
+  }
+
+  handleLogin() {
+    this.setState({ isLoggedIn: true })
+  }
+
+  handleLogout() {
+    this.setState({ isLoggedIn: false })
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+    return this.state.isLoggedIn ?
+      <Navigation /> :
+      <Login
+        onLogin={this.handleLogin.bind(this)}
+        onLogout={this.handleLogout.bind(this)} />
   }
 }
 
