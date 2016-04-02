@@ -40,17 +40,10 @@ const styles = StyleSheet.create({
   navigator: {
     flexWrap: 'wrap',
     flexDirection: 'column'
-    // top: 20
-    // flex: 1,
-    // top: 0,
-    // alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // backgroundColor: '#9ECE9A'
   },
   scene: {
     flex: 1,
-    paddingTop: 70,
-    // top: 30
+    paddingTop: 70
   }
 })
 
