@@ -13,6 +13,7 @@
 
 ```javascript
 body = {
+  'user': '', //id for user
   'ingredients': ['eggplant', 'beef'],
   'location': {
     'lat': int,
