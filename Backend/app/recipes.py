@@ -17,17 +17,14 @@ class RecipeProvider:
         params = {
             'ingredients': ingredients,
             'limitLicense': False,
-            'ranking': 2
+            'ranking': 2,
+            'number': 1000
         }
         return params
 
     @classmethod
     def best_recipe(cls, ingredients):
-        params = {
-            'ingredients': ingredients,
-            'limitLicense': False,
-            'ranking': 2
-        }
+        params = cls.params(ingredients)
         recipes = requests.get(cls.base_url + '/recipes/findByIngredients',
                                headers=cls.headers, params=params).json()
         if not recipes:
@@ -36,9 +33,17 @@ class RecipeProvider:
         return recipes[0]
 
     @classmethod
-    def recipe(cls, _id):
+    def recipe_info(cls, _id):
         params = {
             'includeNutrition': False
         }
         return requests.get(cls.base_url + '/recipes/{}/information'.format(_id),
+                            headers=cls.headers, params=params).json()
+
+    @classmethod
+    def recipe_summary(cls, _id):
+        params = {
+            'includeNutrition': False
+        }
+        return requests.get(cls.base_url + '/recipes/{}/summary'.format(_id),
                             headers=cls.headers, params=params).json()
