@@ -15,7 +15,9 @@ export default class Welcome extends Component {
     this.props.navigator.push({
       name: 'Main',
       component: Main,
-      hideLeft: true
+      hideLeft: true,
+      hideTitle: true,
+      backgroundImage: require('../images/Background-Hungry.png')
     })
   }
 

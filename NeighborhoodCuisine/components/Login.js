@@ -1,24 +1,26 @@
 import React, { Component, View, Text, NativeModules, StyleSheet } from 'react-native'
 import FBLogin from 'react-native-facebook-login'
+import Store from '../lib/Store'
 
 const loginEndpoint = "http://example.com"
 
 export default class Login extends Component {
-  onLogin(data) {
+  onLogin(data, callback) {
     console.log('Facebook Data', data)
+    Store.store('login', data)
 
     fetch(loginEndpoint, {
       method: 'POST',
       data: data
-    }).then(() => this.props.onLogin())
+    }).then(callback)
   }
 
   render() {
     return (
       <FBLogin
         style={this.props.style}
-        onLogin={this.onLogin.bind(this)}
-        onLoginFound={this.props.onLoginFound.bind(this)}
+        onLogin={(data) => this.onLogin(data, this.props.onLogin)}
+        onLoginFound={(data) => this.onLogin(data, this.props.onLoginFound)}
         onCancel={function(e){ console.log(e) }}
         onPermissionsMissing={function(e){ console.log(e) }} />
     )
