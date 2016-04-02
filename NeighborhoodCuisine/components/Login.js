@@ -8,7 +8,7 @@ const loginEndpoint = "http://example.com"
 class Login extends Component {
 
   onLogin(data) {
-    console.log(data)
+    console.log('Facebook Data', data)
     fetch(loginEndpoint, {
       method: 'POST',
       data: data
@@ -17,24 +17,13 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <FBLogin
-            onLogin={this.onLogin.bind(this)}
-            onLogout={this.props.onLogout}
-            onCancel={function(e){console.log(e)}}
-            onPermissionsMissing={function(e){console.log(e)}} />
-      </View>
+      <FBLogin
+        onLogin={this.onLogin.bind(this)}
+        onLogout={this.props.onLogout}
+        onCancel={function(e){console.log(e)}}
+        onPermissionsMissing={function(e){console.log(e)}} />
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});
 
 module.exports = Login
