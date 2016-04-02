@@ -23,9 +23,9 @@ export default class Navigation extends Component {
     return <View>
       <Image style={styles.overlay} source={backgroundImage} />
       <Image style={styles.overlay} source={require('../images/Overlay.png')} />
-      <ScrollView style={styles.scene}>
+      <View style={styles.scene}>
         <RouteComponent navigator={navigator} {...route.passProps} />
-      </ScrollView>
+      </View>
     </View>
   }
 
@@ -83,6 +83,10 @@ const routeMapper = {
     </TouchableHighlight>
   },
   RightButton(route, navigator) {
+    if (route.hide || route.hideRight) {
+      return null
+    }
+
     if (route.name !== 'Main') {
       return null
     }
@@ -90,7 +94,7 @@ const routeMapper = {
     return <MenuButton navigator={navigator}/>
   },
   Title(route) {
-    if (route.hide || route.hideRight) {
+    if (route.hide || route.hideTitle) {
       return null
     }
     const title = route.title || 'Neighborhood Cuisine'
