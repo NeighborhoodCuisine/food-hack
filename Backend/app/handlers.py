@@ -10,3 +10,9 @@ class Session(Resource):
         data = request.get_json()
         print(data)
 
+
+class Ingredients(Resource):
+    @staticmethod
+    def get():
+        return {}
+
