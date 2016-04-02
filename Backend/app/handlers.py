@@ -4,6 +4,10 @@ from flask import request
 from app.model import ActiveUsers
 from app.recipes import RecipeProvider
 
+
+SRC_FACEBOOK = 'fb'
+SRC_SESSION = 'ses'
+
 active_users = ActiveUsers()
 
 
@@ -11,7 +15,7 @@ class Session(Resource):
     @staticmethod
     def put():
         data = request.get_json()
-        active_users.add_user(data, 'ses')
+        active_users.add_user(data, SRC_SESSION)
 
 
 class Match(Resource):
@@ -30,4 +34,4 @@ class InitUser(Resource):
     @staticmethod
     def put():
         data = request.get_json()
-        active_users.add_user(data, 'fb')
+        active_users.add_user(data, SRC_FACEBOOK)
