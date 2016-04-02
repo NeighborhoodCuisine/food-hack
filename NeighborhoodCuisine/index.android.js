@@ -25,17 +25,6 @@ class NeighborhoodCuisine extends Component {
   }
 
   componentWillMount() {
-    // FBLoginManager.getCurrentToken((token) => {
-    //   if (token !== '') {
-    //     this.handleLogin()
-    //   }
-    // })
-    FBLoginManager.logout((msg) => {
-      console.log(msg)
-    })
-  }
-
-  componentWillUnmount() {
     FBLoginManager.logout((msg) => {
       console.log(msg)
     })
