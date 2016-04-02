@@ -11,6 +11,13 @@ SRC_SESSION = 'ses'
 active_users = ActiveUsers()
 
 
+class InitUser(Resource):
+    @staticmethod
+    def put():
+        data = request.get_json()
+        active_users.add_user(data, SRC_FACEBOOK)
+
+
 class Session(Resource):
     @staticmethod
     def put():
@@ -21,17 +28,20 @@ class Session(Resource):
 class Match(Resource):
     @staticmethod
     def get():
-        active_users.get_best_permutation()
+        #active_users.get_best_permutation()
         ingredients = ','.join(active_users.joined_ingredients())
         recipe = RecipeProvider.best_recipe(ingredients)
         if recipe:
-            return RecipeProvider.recipe(recipe['id'])
+            return RecipeProvider.recipe_info(recipe['id'])
         else:
             return {}
 
-
-class InitUser(Resource):
+class NearByUsers(Resource):
     @staticmethod
-    def put():
+    def post():
         data = request.get_json()
-        active_users.add_user(data, SRC_FACEBOOK)
+        user = data['id']
+        count = active_users.find_nearby(user)
+        return {
+            'count': count
+        }

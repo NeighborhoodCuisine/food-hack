@@ -2,6 +2,7 @@ from itertools import combinations
 import grequests
 
 from app.recipes import RecipeProvider
+from app.utils import distance
 
 
 MIN_GUESTS = 3
@@ -26,11 +27,21 @@ class ActiveUsers:
 
         self.users.append(User(data, source))
 
+    def get_user(self, _id):
+        for user in self.users:
+            if user.identifier == _id:
+                return user
+
     def remove_user(self, identifier):
         for user in self.users:
             if user.name == identifier:
                 self.users.remove(user)
                 break
+
+    def find_nearby(self, user, radius=100.):
+        user = self.get_user(user)
+        return len([u for u in self.users if u.identifier != user and
+                    distance(u.location, user.location) <= radius])
 
     @classmethod
     def _joined_ingredients(cls, users):
@@ -90,6 +101,7 @@ class ActiveUsers:
         possible_groups.sort(key=lambda r: r['recipe'].get('likes'),
                              reverse=True)
         best = possible_groups[0]
+        print(best)
         return best
 
 
