@@ -1,5 +1,7 @@
 from itertools import combinations
 
+from app.recipes import RecipeProvider
+
 
 MIN_GUESTS = 3
 MAX_GUESTS = 8
@@ -43,22 +45,30 @@ class ActiveUsers:
         subsets = []
         for i in range(MIN_GUESTS, MAX_GUESTS+1):
             subsets.append([l for l in combinations(self.users, i)])
-        return subsets
+        return [s for sub in subsets for s in sub if sub]
 
     @classmethod
     def _filter_combinations(cls, sets):
-        return [l for l in sets if len(sets) <= max(u for u in l)]
+        return [l for l in sets if len(l) <= max(u.max_guests for u in l)]
+
+    @classmethod
+    def _calculate_ingredients(cls, subsets):
+        options = []
+        for group in subsets:
+            ingredients = cls._joined_ingredients(group)
+            options.append({
+                'group': group,
+                'ingredients': ingredients,
+                'recipe': RecipeProvider.best_recipe(ingredients)
+            })
+        return options
 
     def subset_ingredients(self):
         subsets = self._get_combinations()
-        allowed_groups = self._filter_combinations(subsets)
-        options = []
-        for group in allowed_groups:
-            options.append({
-                'group': group,
-                'ingredients': self._joined_ingredients(group)
-            })
-        return options
+        subsets = self._filter_combinations(subsets)
+        print(subsets, 'after')
+        possible_groups = self._calculate_ingredients(subsets)
+        print(possible_groups)
 
 
 class User:
@@ -68,17 +78,14 @@ class User:
         self.location = [data.get('location').get('lat', 0),
                          data.get('location').get('lon', 0)]
         self.cuisine = data.get('cuisine', '')
-        self.max_guest = data.get('max_guests', 0)
+        self.max_guests = data.get('max_guests', 0)
         self.ingredients = data.get('ingredients', [])
 
     def __repr__(self):
         return str(self)
 
     def __str__(self):
-        ident = self.name + ': '
-        ident += ', '.join([self.cuisine, str(self.max_guest)] + self.ingredients)
-        ident += ' location: ' + str(self.location[0]) + ', ' + str(self.location[1])
-        return ident
+        return self.name
 
     def merge(self, data):
         if self.name != data.get('user'):
@@ -86,6 +93,6 @@ class User:
         else:
             self.location = [data.get('lat'), data.get('lon')]
             self.cuisine = data.get('cuisine')
-            self.max_guest = data.get('max_guests')
+            self.max_guests = data.get('max_guests')
             self.ingredients = data.get('ingredients')
             return True
