@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask import make_response
 from flask_restful import Api
 
-from app.handlers import Session, Ingredients
+from app.handlers import Session, Ingredients, Match
 
 
 app = Flask(__name__, static_url_path="")
@@ -15,6 +15,7 @@ def not_found(error):
 
 api.add_resource(Session, '/session')
 api.add_resource(Ingredients, '/ingredients')
+api.add_resource(Match, '/match')
 
 
 if __name__ == "__main__":
