@@ -1,0 +1,3 @@
+rootProject.name = 'NeighborhoodCuisine'
+
+include ':app'
