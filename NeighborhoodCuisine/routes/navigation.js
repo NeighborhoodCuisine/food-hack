@@ -7,7 +7,7 @@ import React, {
   View,
   ScrollView,
   TouchableHighlight } from 'react-native'
-import Main from './main'
+import Welcome from './Welcome'
 
 
 export default class Navigation extends Component {
@@ -18,6 +18,7 @@ export default class Navigation extends Component {
 
     let RouteComponent = route.component
     let backgroundImage = route.backgroundImage || require('../images/Background-Main.png')
+
     return <View>
       <Image style={styles.overlay} source={backgroundImage} />
       <Image style={styles.overlay} source={require('../images/Overlay.png')} />
@@ -31,7 +32,7 @@ export default class Navigation extends Component {
     return <Navigator
         navigationBar={<Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />}
         style={styles.navigator}
-        initialRoute={{ name: 'Main', component: Main }}
+        initialRoute={{ name: 'Welcome', component: Welcome, hide: true }}
         renderScene={ this.renderScene } />
   }
 }
@@ -56,12 +57,19 @@ const styles = StyleSheet.create({
   scene: {
     flex: 1,
     paddingTop: 70
+  },
+  title: {
+    marginVertical: 10
   }
 })
 
 const routeMapper = {
   LeftButton(route, navigator, index, navState) {
-    if (index == 0) {
+    if (route.hide || route.hideLeft) {
+      return null
+    }
+
+    if (index <= 1) {
       return null
     }
 
@@ -74,5 +82,11 @@ const routeMapper = {
     </TouchableHighlight>
   },
   RightButton() { return null },
-  Title() { return <Text style={{ marginVertical: 10 }}>My Title</Text> }
+  Title(route) {
+    if (route.hide || route.hideRight) {
+      return null
+    }
+
+    return <Text style={styles.title}>Neighborhood Cuisine</Text>
+  }
 }
