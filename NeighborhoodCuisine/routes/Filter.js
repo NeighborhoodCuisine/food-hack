@@ -10,20 +10,21 @@ import Pending from './Pending'
 
 
 export default class Filter extends Component {
-  routeToPending() {
-    this.props.navigator.push({
-      name: 'Pending',
-      component: Pending,
-      title: "Don't worry, someone's always hungry"
-    });
-  }
-
   constructor() {
     super();
     this.state = {
       ingredients: [],
       guests: 0
     }
+  }
+
+  routeToPending() {
+    console.log(this.state)
+    this.props.navigator.push({
+      name: 'Pending',
+      component: Pending,
+      title: "Don't worry, someone's always hungry"
+    });
   }
 
   updateIngredients(ingredients) {
@@ -44,7 +45,7 @@ export default class Filter extends Component {
     return (
       <View>
         <IngredientSelection style={cardStyle} update={this.updateIngredients.bind(this)}/>
-        <HostSelection style={cardStyle} update={this.updateGuests.bind(this)}/>  
+        <HostSelection style={cardStyle} update={this.updateGuests.bind(this)}/>
         <MatchButton onPress={this.routeToPending.bind(this)}/>
       </View>
     )
