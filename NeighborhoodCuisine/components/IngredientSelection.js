@@ -28,6 +28,7 @@ export default class IngredientSelection extends Component {
       ingredients: newIngredients,
       dataSource: this.state.dataSource.cloneWithRows(newIngredients.concat(['']))
     });
+    this.props.update(newIngredients);
   }
 
   remove(ingredientName) {
@@ -38,6 +39,7 @@ export default class IngredientSelection extends Component {
       ingredients: newIngredients,
       dataSource: this.state.dataSource.cloneWithRows(newIngredients.concat(['']))
     });
+    this.props.update(newIngredients);
   }
 
   render() {

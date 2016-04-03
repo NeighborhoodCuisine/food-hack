@@ -15,7 +15,7 @@ import ProfileImage from '../components/ProfileImage'
 
 export default class Main extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       picture: require('../images/Anonymous-Profile.png'),
       count: 0
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
   highlighted: {
     marginTop: 4
   }
-})
+});
