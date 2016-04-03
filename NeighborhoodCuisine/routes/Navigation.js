@@ -33,21 +33,33 @@ export default class Navigation extends Component {
     return <Navigator
         navigationBar={<Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />}
         style={styles.navigator}
-        initialRoute={{ name: 'Welcome', component: Welcome, hide: true }}
+        initialRoute={{ name: 'Welcome', component: Test2, hide: true }}
         renderScene={ this.renderScene } />
   }
 }
 
 import RecipeOverview from '../components/RecipeOverview'
+import PeopleOverview from '../components/PeopleOverview'
 
-class Test extends Component {
+class Test2 extends Component {
   render() {
-    return <RecipeOverview
+    return <View>
+      <PeopleOverview count={5} users={[{name: 'Sven', 'image': 'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg', fbLink: 'https://www.facebook.com/'}]}
+    />
+    <RecipeOverview
       image={'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg'}
       title={"ChickenCurry"}
       cuisine={"Indian"}
-      onShow={() => { this.props.navigator.push({ name: Welcome, component: Welcome })}}
+      recipeUrl={"http://google.com"}
     />
+    </View>
+  }
+}
+
+
+class Test extends Component {
+  render() {
+    return
   }
 }
 const styles = StyleSheet.create({
