@@ -43,6 +43,10 @@ export default class Pending extends Component {
     this.fetchMatches()
   }
 
+  componentDidMount() {
+    this.time = 0
+  }
+
   routeToMatch(data) {
     this.props.navigator.push({
       name: 'Cooking Group',

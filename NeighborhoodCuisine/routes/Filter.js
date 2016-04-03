@@ -45,13 +45,13 @@ export default class Filter extends Component {
         ...this.state,
         id: Store.get('login').id
       })
-    });
-
-    this.props.navigator.push({
-      name: 'Pending',
-      component: Pending,
-      title: "Don't worry, someone's always hungry"
-    });
+    }).then(() => {
+      this.props.navigator.push({
+        name: 'Pending',
+        component: Pending,
+        title: "Don't worry, someone's always hungry"
+      })
+    })
   }
 
   updateIngredients(ingredients) {
