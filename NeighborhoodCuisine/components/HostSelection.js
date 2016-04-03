@@ -11,8 +11,8 @@ export default class HostSelection extends Component {
     super();
     this.state = {
       peopleHosted: 0,
-      pickerItems: ["Don't host", 3, 4, 5, 6, 7, 8, 9, 10].map((d) => <Picker.Item key={d} value={d.toString()}
-                                                                                   label={d.toString()}/>)
+      pickerItems: ["Don't host", 3, 4, 5, 6, 7, 8, 9, 10]
+        .map((d) => <Picker.Item key={d} value={d.toString()} label={d.toString()}/>)
     }
   }
 
@@ -23,7 +23,10 @@ export default class HostSelection extends Component {
         <View style={styles.pickerContainer}>
           <Picker style={styles.picker} itemStyle={{fontSize: 14}}
                   selectedValue={this.state.peopleHosted}
-                  onValueChange={(num) => this.setState({peopleHosted: num})}>
+                  onValueChange={(num) => {
+                    this.setState({peopleHosted: num});
+                    this.props.update(num);
+                  }}>
             {this.state.pickerItems}
           </Picker>
         </View>
@@ -38,8 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#56565C'
   },
-  picker: {
-  },
+  picker: {},
   pickerContainer: {
     overflow: 'hidden',
     height: 90,
