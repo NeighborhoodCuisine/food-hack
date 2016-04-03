@@ -5,14 +5,25 @@ import React, {
 
 import IngredientSelection from '../components/IngredientSelection'
 import HostSelection from '../components/HostSelection'
+import MatchButton from '../components/MatchButton'
+import Pending from './Pending'
 
 
 export default class Filter extends Component {
+  routeToPending() {
+    this.props.navigator.push({
+      name: 'Pending',
+      component: Pending,
+      title: "Don't worry, someone's always hungry"
+    });
+  }
+
   render() {
     return (
       <View>
         <IngredientSelection style={cardStyle}/>
         <HostSelection style={cardStyle}/>  
+        <MatchButton onPress={this.routeToPending.bind(this)}/>
       </View>
     )
   }
