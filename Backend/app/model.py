@@ -172,7 +172,7 @@ class User:
         self.first_name = data.get('first_name') or self.first_name
         self.last_name = data.get('last_name') or self.last_name
         self.fb_link = data.get('fb_link') or self.fb_link
-        self.image_url = data.get('small_image_url') or self.image_url
+        self.image_url = data.get('image_link') or self.image_url
         self.fb_token = data.get('fb_token') or self.fb_token
         self.location = [data.get('location').get('lat'),
                          data.get('location').get('lon', 0)]
