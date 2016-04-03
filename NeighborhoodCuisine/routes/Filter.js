@@ -19,8 +19,22 @@ export default class Filter extends Component {
     }
   }
 
-  routeToPending() {
+  putSession() {
+    fetch(ENDPOINT + '/session', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        max_guests: this.state.guests,
+        ingredients: this.state.ingredients
+      })
+    });
 
+    console.log(this.state);
+  }
+
+  routeToPending() {
     fetch(ENDPOINT + '/session', {
       method: 'PUT',
       headers: {

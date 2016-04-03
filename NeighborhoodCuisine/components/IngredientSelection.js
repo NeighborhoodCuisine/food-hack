@@ -47,7 +47,7 @@ export default class IngredientSelection extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderHeader={() => {
-          return <Text style={styles.header}>What ingredients do you have?</Text>
+          return <Text style={styles.header}>Which ingredients do you have?</Text>
         }}
         renderRow={(rowData, sectionID, rowID) => {
           if(parseInt(rowID) + 1 === this.state.dataSource.getRowCount()) {
@@ -91,7 +91,7 @@ class AddIngredient extends Component {
       this.props.add(this.state.text);
     }
   }
-
+  
   render() {
     return (
       <View style={[styles.cell, styles.lastCell]}>
@@ -99,6 +99,7 @@ class AddIngredient extends Component {
           style={[styles.left, styles.ingredient]}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          autoFocus={true}
         />
         <TouchableHighlight onPress={this.onPressAdd.bind(this)} underlayColor='white'>
           <Icon name='plus-circle' size={25} color='#68A026' style={styles.right}/>
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
     borderColor: '#CCC'
   },
   lastCell: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    borderColor: '#56565C'
   },
   left: {
     flex: 0.8

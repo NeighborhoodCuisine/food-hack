@@ -4,7 +4,7 @@ export default class ProfileImage extends Component {
   render() {
     return (
       <View style={{
-        backgroundColor: '#6C56B7',
+        backgroundColor: '#E53935',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
