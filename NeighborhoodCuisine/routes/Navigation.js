@@ -19,7 +19,7 @@ export default class Navigation extends Component {
     }
 
     let RouteComponent = route.component
-    let backgroundImage = route.backgroundImage || require('../images/Background-Main.png')
+    let backgroundImage = route.backgroundImage || require('../images/Background-Main.jpg')
 
     return <View>
       <Image style={styles.overlay} source={backgroundImage} />
@@ -85,6 +85,11 @@ const styles = StyleSheet.create({
   },
   title: {
     marginVertical: 10
+  },
+  backButton: {
+    left: 10,
+    color: '#fff',
+    width: 60
   }
 });
 
@@ -103,7 +108,7 @@ const routeMapper = {
     return <TouchableHighlight
       underlayColor="transparent"
       onPress={() => { if (index > 0) { navigator.pop() }}}>
-      <Text>{backButtonText}</Text>
+      <Text style={styles.backButton}>{backButtonText}</Text>
     </TouchableHighlight>
   },
   RightButton(route, navigator) {
@@ -118,6 +123,7 @@ const routeMapper = {
     return <MenuButton navigator={navigator}/>
   },
   Title(route) {
+    return null
     if (route.hide || route.hideTitle) {
       return null
     }
