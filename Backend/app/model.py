@@ -42,7 +42,7 @@ class ActiveUsers:
     def find_nearby(self, user, radius=1000.):
         user = self.get_user(user)
         if user is None:
-            return 
+            return
         return len([u for u in self.users if u.identifier != user and
                     distance(u.location, user.location) <= radius])
 
@@ -103,7 +103,8 @@ class ActiveUsers:
         recipe.update(info)
         recipe.update(summary)
 
-    def enrich_user_data(self, data):
+    @classmethod
+    def enrich_user_data(cls, data):
         users = copy.deepcopy(data['group'])
         data['group'] = []
         for user in users:
