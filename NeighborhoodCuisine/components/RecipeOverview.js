@@ -30,7 +30,7 @@ export default class RecipeOverview extends Component {
               <View style={[styles.cardActionStyle, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                 <Text style={{}}>Show Recipe</Text>
                 <Image source={require('../images/Arrow-Right.png')} style={{height: 16, marginTop: 1, resizeMode: 'contain'}} />
-                </View>
+              </View>
             </TouchableHighlight>
           </View>
         </View>

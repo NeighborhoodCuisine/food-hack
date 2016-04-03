@@ -25,6 +25,7 @@ export default class HostSelection extends Component {
                   selectedValue={this.state.peopleHosted}
                   onValueChange={(num) => {
                     this.setState({peopleHosted: num});
+                    num = (num === "I don't want to host") ? 0 : num
                     this.props.update(num);
                   }}>
             {this.state.pickerItems}

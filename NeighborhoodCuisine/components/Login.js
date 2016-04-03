@@ -22,10 +22,6 @@ export default class Login extends Component {
     })
     Store.store('fb', this.fb)
 
-    // Login to app before posting data to backend
-    callback()
-
-
     // --- post user data and location to server
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -59,6 +55,9 @@ export default class Login extends Component {
       (error) => console.error(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     )
+
+    // Login to app before response of backend
+    callback()
   }
 
   render() {
