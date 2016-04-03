@@ -6,9 +6,10 @@ import React, {
   Text,
   TouchableHighlight,
   StyleSheet,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native'
-
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 class RemoveIngredient extends Component {
   onPressRemove() {
@@ -19,8 +20,8 @@ class RemoveIngredient extends Component {
     return (
       <View style={styles.cell}>
         <Text style={styles.left}>{this.props.text}</Text>
-        <TouchableHighlight onPress={this.onPressRemove.bind(this)}>
-          <Text style={styles.right}>-</Text>
+        <TouchableHighlight onPress={this.onPressRemove.bind(this)} underlayColor='white'>
+          <Icon name='minus-circle' size={25} color='#B82234' style={styles.right}/>
         </TouchableHighlight>
       </View>
     );
@@ -34,7 +35,9 @@ class AddIngredient extends Component {
   }
 
   onPressAdd() {
-    this.props.add(this.state.text)
+    if (this.state.text) {
+      this.props.add(this.state.text);
+    }
   }
 
   render() {
@@ -45,8 +48,8 @@ class AddIngredient extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
-        <TouchableHighlight onPress={this.onPressAdd.bind(this)}>
-          <Text style={styles.right} on>+</Text>
+        <TouchableHighlight onPress={this.onPressAdd.bind(this)} underlayColor='white'>
+          <Icon name='plus-circle' size={25} color='#68A026' style={styles.right}/>
         </TouchableHighlight>
       </View>
     );
@@ -135,7 +138,6 @@ const styles = StyleSheet.create({
     flex: 0.8
   },
   right: {
-    textAlign: 'right',
     flex: 0.2
   }
 });
