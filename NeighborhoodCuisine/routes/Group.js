@@ -18,16 +18,16 @@ export default class Group extends Component {
     console.log(this.props.groupData)
 
     return (
-      <View>
+      <ScrollView>
         <PeopleOverview
           count={this.props.groupData.group.length} users={this.props.groupData.group} />
         <RecipeOverview
           image={this.props.groupData.recipe.image}
           title={this.props.groupData.recipe.title}
-          cuisine={this.props.groupData.recipe.cuisine}
-          recipeUrl={this.props.groupData.recipe.url}
+          cuisine={''}
+          recipeUrl={this.props.groupData.recipe.sourceUrl}
         />
-      </View>
+      </ScrollView>
     )
   }
 }

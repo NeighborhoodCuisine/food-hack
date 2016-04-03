@@ -79,9 +79,10 @@ export default class Pending extends Component {
         if (_.isEmpty(json)) {
           setTimeout(this.fetchMatches.bind(this), TIMEOUT)
         } else {
-          this.routeToMatch(json).bind(this)
+          this.routeToMatch(json)
         }
       })
+      .catch(console.error)
   }
 
   render() {

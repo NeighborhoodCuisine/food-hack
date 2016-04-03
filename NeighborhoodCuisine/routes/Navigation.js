@@ -24,9 +24,9 @@ export default class Navigation extends Component {
     return <View>
       <Image style={styles.overlay} source={backgroundImage} />
       <Image style={styles.overlay} source={require('../images/Overlay.png')} />
-      <View style={styles.scene}>
+      <ScrollView style={styles.scene}>
         <RouteComponent navigator={navigator} {...route.passProps} />
-      </View>
+      </ScrollView>
     </View>
   }
 
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     // flexDirection: 'column'
   },
   scene: {
-    flex: 1,
     paddingTop: 70
   },
   title: {
