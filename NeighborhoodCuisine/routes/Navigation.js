@@ -40,15 +40,27 @@ export default class Navigation extends Component {
 }
 
 import RecipeOverview from '../components/RecipeOverview'
+import PeopleOverview from '../components/PeopleOverview'
 
-class Test extends Component {
+class Test2 extends Component {
   render() {
-    return <RecipeOverview
+    return <View>
+      <PeopleOverview count={5} users={[{name: 'Sven', 'image': 'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg', fb_link: 'https://www.facebook.com/'}]}
+    />
+    <RecipeOverview
       image={'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg'}
       title={"ChickenCurry"}
       cuisine={"Indian"}
-      onShow={() => { this.props.navigator.push({ name: Welcome, component: Welcome })}}
+      recipeUrl={"http://google.com"}
     />
+    </View>
+  }
+}
+
+
+class Test extends Component {
+  render() {
+    return
   }
 }
 const styles = StyleSheet.create({

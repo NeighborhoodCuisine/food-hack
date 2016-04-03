@@ -29,8 +29,6 @@ export default class Login extends Component {
             lon: position.coords.longitude
           }
         }
-        let form = new FormData()
-        form.append('json', JSON.stringify(payload))
 
         fetch(ENDPOINT + '/user', {
           method: 'PUT',
@@ -41,12 +39,13 @@ export default class Login extends Component {
           body: JSON.stringify({
             id: data.credentials.userId,
             fb_token: data.credentials.token,
+            fb_link: 'http://facebook.com/' + data.credentials.userId,
             location: {
               lat: position.coords.latitude,
               lon: position.coords.longitude
             }
           })
-        })
+        }).catch(console.error)
       },
       (error) => console.error(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
