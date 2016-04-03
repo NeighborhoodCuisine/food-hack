@@ -12,7 +12,7 @@ export default class Filter extends Component {
     return (
       <View>
         <IngredientSelection style={cardStyle}/>
-        <HostSelection style={cardStyle}/>
+        <HostSelection style={cardStyle}/>  
       </View>
     )
   }

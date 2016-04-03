@@ -4,13 +4,14 @@ import React, {
   Text,
   TouchableHighlight,
   Image,
-  StyleSheet
+  StyleSheet, ScrollView
 } from 'react-native'
 import Filter from './Filter'
 import Store from '../lib/Store'
 import FB from '../lib/FB'
 import CommonStyles from '../components/Styles'
-
+import RecipeOverview from '../components/RecipeOverview'
+import { nearby } from '../lib/Endpoint'
 
 export default class Main extends Component {
   constructor(props) {
@@ -43,8 +44,23 @@ export default class Main extends Component {
     })
   }
 
+  componentDidMount() {
+    nearby()
+      .then(count => this.setState({ count }))
+      .catch(() => this.setState({ count: -1 }))
+  }
+
   render() {
     console.log(Store.get('login'))
+
+    const { count } = this.state
+    let people = count + ' hungry people nearby.'
+    if (count === 1) {
+      people = '1 hungry person nearby.'
+    } else {
+      people = 'No one hungry nearby.'
+    }
+
     return <View style={styles.container}>
       <View style={styles.profileBackground}>
         <Image style={styles.profile} source={this.state.picture} />
@@ -59,7 +75,7 @@ export default class Main extends Component {
           <Text style={[CommonStyles.text, styles.go]}>Let's cook!</Text>
         </TouchableHighlight>
       </View>
-      <Text style={[CommonStyles.text, styles.highlighted]}>3 hungry people nearby.</Text>
+      <Text style={[CommonStyles.text, styles.highlighted]}>{people}</Text>
 
     </View>
   }

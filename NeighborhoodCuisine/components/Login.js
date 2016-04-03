@@ -7,7 +7,7 @@ export default class Login extends Component {
   onLogin(data, callback) {
     data = {...data, id: data.id || (data.profile && data.profile.id) || (data.credentials && data.credentials.userId)}
     if (!data.credentials) {
-      data.credentials = { 
+      data.credentials = {
         userId: data.id
       }
     }
