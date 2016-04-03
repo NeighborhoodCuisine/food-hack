@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask import request
+from copy import deepcopy
 
 from app.model import ActiveUsers
 
@@ -36,11 +37,12 @@ class Match(Resource):
         user = request.get_json()['id']
         if cls.cache is None:
             cls.cache = active_users.get_best_permutation()
-        if user in [u.identifier for u in cls.cache['group']]:
-            active_users.enrich_missing_ingredients(cls.cache)
-            active_users.enrich_user_data(cls.cache)
-            print(cls.cache['group'])
-            return cls.cache
+        data = deepcopy(cls.cache)
+        if user in [u.identifier for u in data['group']]:
+            active_users.enrich_missing_ingredients(data)
+            active_users.enrich_user_data(data)
+            print(data['group'])
+            return data
         else:
             return {}
 
