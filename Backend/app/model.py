@@ -41,6 +41,8 @@ class ActiveUsers:
 
     def find_nearby(self, user, radius=1000.):
         user = self.get_user(user)
+        if user is None:
+            return 
         return len([u for u in self.users if u.identifier != user and
                     distance(u.location, user.location) <= radius])
 
