@@ -33,7 +33,7 @@ export default class Navigation extends Component {
     return <Navigator
         navigationBar={<Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />}
         style={styles.navigator}
-        initialRoute={{ name: 'Welcome', component: Test2, hide: true }}
+        initialRoute={{ name: 'Welcome', component: Welcome, hide: true }}
         renderScene={ this.renderScene } />
   }
 }

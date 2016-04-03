@@ -22,8 +22,7 @@ export default class Main extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log('access_token', Store.get('login').credentials.token)
+  componentWillMount() {
     this.fb = new FB({
       access_token: Store.get('login').credentials.token,
       fields: ['first_name', 'picture']
@@ -52,8 +51,6 @@ export default class Main extends Component {
   }
 
   render() {
-    console.log(Store.get('login'))
-
     const { count } = this.state
     let people = count + ' hungry people nearby.'
     if (count === 1) {
