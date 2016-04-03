@@ -24,7 +24,7 @@ export default class RecipeOverview extends Component {
             <Image source={{uri : this.props.image}} style={styles.cardImageStyle} />
             <Text style={styles.cardTitleStyle}>{this.props.title}</Text>
             <Image style={styles.cardIconStyle} source={require('../images/Likes.png')}/>
-            <Text style={style.cardBodyStyle}>{this.props.likes}<Text>
+            <Text style={style.cardBodyStyle}>{this.props.likes}</Text>
             <TouchableHighlight onPress={this.onShow.bind(this)}>
               <View style={[styles.cardActionStyle, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                 <Text style={{}}>Show Recipe</Text>
