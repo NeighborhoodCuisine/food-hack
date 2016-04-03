@@ -39,7 +39,7 @@ class ActiveUsers:
                 self.users.remove(user)
                 break
 
-    def find_nearby(self, user, radius=100.):
+    def find_nearby(self, user, radius=1000.):
         user = self.get_user(user)
         return len([u for u in self.users if u.identifier != user and
                     distance(u.location, user.location) <= radius])
