@@ -6,13 +6,37 @@ import React, {
   Image,
   View,
   ScrollView,
-  TouchableHighlight } from 'react-native'
+  TouchableHighlight,
+  BackAndroid } from 'react-native'
 import Welcome from './Welcome'
 import Main from './Main'
 import MenuButton from '../components/MenuButton'
 import CommonStyles from '../components/Styles'
 
 export default class Navigation extends Component {
+
+  componentDidMount() {
+    const _this = this
+    BackAndroid.addEventListener('hardwareBackPress', function() {
+         if (!_this.onMainScreen()) {
+           _this.goBack()
+           return true
+         }
+         return true
+    })
+  }
+
+  goBack() {
+    this.refs.navigator.pop()
+  }
+
+  onMainScreen() {
+    const routes = this.refs.navigator.getCurrentRoutes()
+    if (routes.length == 1) return true
+    const currentRoute = routes[routes.length - 1]
+    return (currentRoute.name === 'Main') || (currentRoute.name === 'Welcome')
+  }
+
   renderScene(route, navigator) {
     if (!route.component) {
       throw new Error('Provide a component propery on routing!')
@@ -31,7 +55,7 @@ export default class Navigation extends Component {
   }
 
   render() {
-    return <Navigator
+    return <Navigator ref="navigator"
         navigationBar={<Navigator.NavigationBar style={styles.navBar} routeMapper={routeMapper} />}
         style={styles.navigator}
         initialRoute={{ name: 'Welcome', component: Welcome, hide: true }}
