@@ -5,13 +5,17 @@ import React, {
   Image, Text, TouchableHighlight, Linking } from 'react-native'
 import CommonStyles from './Styles'
 import { getTheme } from 'react-native-material-kit'
+import _ from 'lodash'
+
 export default class RecipeOverview extends Component {
   onShow() {
     Linking.openURL(this.props.recipeUrl)
   }
 
   renderIngredient(ingredient, style) {
-    return <Text key={ingredient} style={[s.ingredientText, style]}>{ingredient}</Text>
+    const ingredients = this.props.extendedIngredients
+    const original = _.filter(ingredients, { name: ingredient })[0].originalString
+    return <Text key={ingredient} style={[s.ingredientText, style]}>{original}</Text>
   }
 
   renderMissingIngredient(ingredient) {
@@ -40,6 +44,7 @@ export default class RecipeOverview extends Component {
           <View style={styles.cardStyle}>
             <Image source={{uri : this.props.image}} style={styles.cardImageStyle} />
             <Text style={styles.cardTitleStyle}>{this.props.title}</Text>
+            <Text style={[styles.cardSubtitleStyle, {marginTop: 12}]}>Missing Ingredients for the recipe:</Text>
             {this.renderIngredients()}
             <TouchableHighlight onPress={this.onShow.bind(this)}>
               <View style={[styles.cardActionStyle, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
@@ -70,7 +75,7 @@ const recipeText = {
 const s = {
   ingredientText: {
     padding: 8,
-    left: 20
+    paddingLeft: 20
   },
   missing: {
     color: '#E53935'
