@@ -18,14 +18,13 @@ export default class Group extends Component {
   // }
 
   render() {
+    console.log(this.props.groupData)
     // <TouchableHighlight onPress={this.decline.bind(this)}>
     //   <Image style={styles.declineImage} source={require('../images/Decline.png')} />
     //   <Text style={styles.declineText}>Decline Match</Text>
     // </TouchableHighlight>
     return (
       <View>
-
-
         <PeopleOverview
           count={this.props.groupData.users.length} users={this.props.groupData.users} />
         <RecipeOverview
