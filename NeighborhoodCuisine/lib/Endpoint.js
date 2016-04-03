@@ -10,7 +10,7 @@ function getWithId(route) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      id: Store.get('login').credentials.userId
+      id: Store.get('login').id
     })
   })
 }

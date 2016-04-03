@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     // flexDirection: 'column'
   },
   scene: {
-    flex: 1,
     paddingTop: 70
   },
   title: {
