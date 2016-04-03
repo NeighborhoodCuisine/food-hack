@@ -160,6 +160,7 @@ class User:
         self.fb_link = ''
         self.image_url = ''
         self.fb_token = ''
+        self.max_guests = 0
         self.location = [52.505573, 13.393538]
 
     def _set_session(self, data):

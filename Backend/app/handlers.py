@@ -8,6 +8,7 @@ SRC_FACEBOOK = 'fb'
 SRC_SESSION = 'ses'
 
 active_users = ActiveUsers()
+best_recipe = None
 
 
 class InitUser(Resource):
@@ -30,6 +31,8 @@ class Match(Resource):
     @staticmethod
     def post():
         user = request.get_json()['id']
+        if best_recipe is None:
+
         data = active_users.get_best_permutation()
         if user in [u.identifier for u in data['group']]:
             active_users.enrich_missing_ingredients(data)
