@@ -2,8 +2,8 @@ import Store from './Store'
 
 export const ENDPOINT = 'http://87.106.89.243:8080'
 
-export function nearby() {
-  return fetch(ENDPOINT + '/nearby', {
+function getWithId(route) {
+  return fetch(ENDPOINT + '/' + route, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -13,4 +13,12 @@ export function nearby() {
       id: Store.get('login').credentials.userId
     })
   })
+}
+
+export function nearby() {
+  return getWithId('nearby')
+}
+
+export function getMatch() {
+  return getWithId('match')
 }

@@ -8,8 +8,12 @@ import React, {
   StyleSheet,
   TextInput
 } from 'react-native'
+import _ from 'lodash'
 
 var ProgressBar = require('ProgressBarAndroid');
+
+import Group from './Group'
+import { getMatch } from '../lib/Endpoint'
 
 class Spinner extends Component {
   render() {
@@ -39,7 +43,47 @@ class MatchBox extends Component {
   }
 }
 
+const TIMEOUT = 1000;
+
 export default class Pending extends Component {
+
+  constructor() {
+    super()
+    this.fetchMatches()
+    this.time = 0
+  }
+
+  routeToMatch(data) {
+    this.props.navigator.push({
+      name: 'Cooking Group',
+      backButtonText: 'Cancel',
+      component: Group,
+      hideLeft: true,
+      hideTitle: true,
+      passProps: { groupData: data },
+      backgroundImage: require('../images/Background-Hungry.png')
+    })
+  }
+
+  fetchMatches() {
+    console.log('fetchMatches')
+    this.time = Date.now()
+    getMatch()
+      .then(response => response.json())
+      .then(json => {
+        const now = Date.now()
+        const diff = now - this.time
+        this.time = now
+        const time = diff / 1000
+        console.log('response with time: ', time, json)
+        if (_.isEmpty(json)) {
+          setTimeout(this.fetchMatches.bind(this), TIMEOUT)
+        } else {
+          this.routeToMatch(json).bind(this)
+        }
+      })
+  }
+
   render() {
     return (
       <View>

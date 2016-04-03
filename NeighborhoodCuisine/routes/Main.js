@@ -18,7 +18,8 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      picture: require('../images/Anonymous-Profile.png')
+      picture: require('../images/Anonymous-Profile.png'),
+      count: 0
     }
   }
 
@@ -34,6 +35,12 @@ export default class Main extends Component {
         name: data.first_name
       }))
       .catch((error) => console.log(error))
+      .then(() => {
+        nearby()
+          .then(response => response.json())
+          .then(data => this.setState({ count: data.count }))
+          .catch(() => this.setState({ count: -1 }))
+      })
   }
 
   routeToFilter() {
@@ -44,18 +51,12 @@ export default class Main extends Component {
     })
   }
 
-  componentDidMount() {
-    nearby()
-      .then(count => this.setState({ count }))
-      .catch(() => this.setState({ count: -1 }))
-  }
-
   render() {
     const { count } = this.state
-    let people = count + ' hungry people nearby.'
+    let people = '' + count + ' hungry people nearby.'
     if (count === 1) {
       people = '1 hungry person nearby.'
-    } else {
+    } else if (count === 0) {
       people = 'No one hungry nearby.'
     }
 
