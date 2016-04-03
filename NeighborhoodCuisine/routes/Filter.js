@@ -31,13 +31,13 @@ export default class Filter extends Component {
         ...this.state,
         id: Store.get('login').id
       })
+    }).then(() => {
+      this.props.navigator.push({
+        name: 'Pending',
+        component: Pending,
+        title: "Don't worry, someone's always hungry"
+      })
     })
-
-    this.props.navigator.push({
-      name: 'Pending',
-      component: Pending,
-      title: "Don't worry, someone's always hungry"
-    });
   }
 
   updateIngredients(ingredients) {
