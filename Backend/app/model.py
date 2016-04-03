@@ -159,8 +159,9 @@ class User:
         self.fb_token = ''
 
     def _set_session(self, data):
-        self.location = [data.get('location').get('lat', 0),
-                         data.get('location').get('lon', 0)]
+        if data.get('location'):
+            self.location = [data['location'].get('lat', 0),
+                             data['location'].get('lon', 0)]
         self.cuisine = data.get('cuisine', '')
         self.max_guests = data.get('max_guests', 0)
         self.ingredients = data.get('ingredients', [])
