@@ -1,10 +1,23 @@
 from flask_restful import Resource
-from flask import request, jsonify
-from app.credentials import access_token
+from flask import request
+from copy import deepcopy
+
 from app.model import ActiveUsers
-import requests
+
+
+SRC_FACEBOOK = 'fb'
+SRC_SESSION = 'ses'
 
 active_users = ActiveUsers()
+
+
+class InitUser(Resource):
+    @staticmethod
+    def put():
+        data = request.get_json()
+        print(data)
+        Match.cache = None
+        active_users.add_user(data, SRC_FACEBOOK)
 
 
 class Session(Resource):
@@ -12,30 +25,34 @@ class Session(Resource):
     def put():
         data = request.get_json()
         print(data)
-        active_users.add_user(data)
-        print(active_users)
-        print(active_users.joined_ingredients())
-
-
-class Ingredients(Resource):
-    @staticmethod
-    def get():
-        return {}
+        Match.cache = None
+        active_users.add_user(data, SRC_SESSION)
 
 
 class Match(Resource):
+    cache = None
+
+    @classmethod
+    def post(cls):
+        user = request.get_json()['id']
+        if cls.cache is None:
+            cls.cache = active_users.get_best_permutation()
+        data = deepcopy(cls.cache)
+        if user in [u.identifier for u in data['group']]:
+            active_users.enrich_missing_ingredients(data)
+            active_users.enrich_user_data(data)
+            print(data['group'])
+            return data
+        else:
+            return {}
+
+
+class NearByUsers(Resource):
     @staticmethod
-    def get():
-        ingredients = ','.join(active_users.joined_ingredients())
-        header = {
-            'X-Mashape-Key': access_token,
-            'Accept': 'application/json'
+    def post():
+        data = request.get_json()
+        user = data['id']
+        count = active_users.find_nearby(user)
+        return {
+            'count': count
         }
-        params = {
-            'ingredients': ingredients,
-            'limitLicense': False,
-            'ranking': 2
-        }
-        response = requests.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients',
-                                header=header, params=params).json()
-        return jsonify(response)
