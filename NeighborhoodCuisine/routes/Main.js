@@ -12,6 +12,7 @@ import FB from '../lib/FB'
 import CommonStyles from '../components/Styles'
 import RecipeOverview from '../components/RecipeOverview'
 import { nearby } from '../lib/Endpoint'
+import ProfileImage from '../components/ProfileImage'
 
 export default class Main extends Component {
   constructor(props) {
@@ -21,8 +22,7 @@ export default class Main extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log('access_token', Store.get('login').credentials.token)
+  componentWillMount() {
     this.fb = new FB({
       access_token: Store.get('login').credentials.token,
       fields: ['first_name', 'picture']
@@ -51,8 +51,6 @@ export default class Main extends Component {
   }
 
   render() {
-    console.log(Store.get('login'))
-
     const { count } = this.state
     let people = count + ' hungry people nearby.'
     if (count === 1) {
@@ -62,9 +60,7 @@ export default class Main extends Component {
     }
 
     return <View style={styles.container}>
-      <View style={styles.profileBackground}>
-        <Image style={styles.profile} source={this.state.picture} />
-      </View>
+      <ProfileImage image={this.state.picture} />
 
       <Text style={[CommonStyles.text, CommonStyles.heading]}>Hi {this.state.name},</Text>
       <Text style={[CommonStyles.text, CommonStyles.heading]}>are you hungry?</Text>
@@ -86,21 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  profileBackground: {
-    borderRadius: 38,
-    width: 76,
-    height: 76,
-    backgroundColor: '#6C56B7',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12
-  },
-  profile: {
-    borderRadius: 36,
-    width: 72,
-    height: 72
   },
   button: {
     marginTop: 78,

@@ -26,11 +26,12 @@ export default class Welcome extends Component {
         <Image style={styles.logo} source={require('../images/Logo.png')} />
         <Text style={[CommonStyles.text, CommonStyles.heading, CommonStyles.textPadding, styles.welcome]}>Welcome to</Text>
         <Text style={[CommonStyles.text, CommonStyles.heading, CommonStyles.textPadding]}>Neighborhood Cuisine</Text>
-        <Text style={[CommonStyles.text, CommonStyles.textPadding, CommonStyles.subheading, styles.spacing]}>Get ready to dine.</Text>
+
         <Login
           style={styles.login}
           onLogin={this.routeToMain.bind(this)}
           onLoginFound={this.routeToMain.bind(this)} />
+        <Text style={[CommonStyles.text, CommonStyles.textPadding, CommonStyles.subheading, styles.spacing]}>Get ready to dine.</Text>
       </View>
     )
   }
