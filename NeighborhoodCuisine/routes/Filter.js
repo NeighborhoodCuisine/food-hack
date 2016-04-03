@@ -7,19 +7,32 @@ import IngredientSelection from '../components/IngredientSelection'
 import HostSelection from '../components/HostSelection'
 import MatchButton from '../components/MatchButton'
 import Pending from './Pending'
-
+import Store from '../lib/Store'
+import { ENDPOINT } from '../lib/Endpoint'
 
 export default class Filter extends Component {
   constructor() {
     super();
     this.state = {
       ingredients: [],
-      guests: 0
+      max_guests: 0
     }
   }
 
   routeToPending() {
-    console.log(this.state)
+
+    fetch(ENDPOINT + '/session', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...this.state,
+        id: Store.get('login').id
+      })
+    })
+
     this.props.navigator.push({
       name: 'Pending',
       component: Pending,
@@ -29,15 +42,13 @@ export default class Filter extends Component {
 
   updateIngredients(ingredients) {
     this.setState({
-      ingredients: ingredients,
-      guests: this.state.guests
+      ingredients: ingredients
     })
   }
 
   updateGuests(number) {
     this.setState({
-      ingredients: this.state.ingredients,
-      guests: number
+      max_guests: number
     })
   }
 
@@ -62,4 +73,3 @@ const cardStyle = {
   borderRadius: 4,
   marginBottom: 15
 };
-

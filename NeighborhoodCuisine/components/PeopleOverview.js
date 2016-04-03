@@ -20,7 +20,7 @@ export default class PeopleOverview extends Component {
       }}>
       <View style={styles.row}>
         <ProfileImage image={{uri: rowData.image}} size={48} />
-        <Text style={[CommonStyles.text, styles.rowText]}>{rowData.name}</Text>
+        <Text style={[CommonStyles.text, styles.rowText]}>{rowData.first_name} {rowData.last_name}</Text>
       </View>
     </TouchableHighlight>
   }
