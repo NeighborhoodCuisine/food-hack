@@ -4,21 +4,46 @@ import Store from '../lib/Store'
 import { ENDPOINT } from '../lib/Endpoint'
 import FB from '../lib/FB'
 
+var FBLoginManager = require('NativeModules').FBLoginManager;
+
 export default class Login extends Component {
+
+  componentDidMount() {
+    if (FBLoginManager.getCurrentToken) {
+      FBLoginManager.getCurrentToken((token) => {
+        console.log("token via LoginManager")
+        data = {
+          credentials: { token }
+        }
+        this.onLogin(data, this.props.onLoginFound)
+      })
+    }
+  }
+
   onLogin(data, callback) {
     data = {...data, id: data.id || (data.profile && data.profile.id) || (data.credentials && data.credentials.userId)}
-    if (!data.credentials) {
-      data.credentials = {
-        userId: data.id
-      }
-    }
+    // if (!data.credentials) {
+    //   data.credentials = {
+    //     userId: data.id
+    //   }
+    // }
 
     console.log('Facebook Data', data)
     Store.store('login', data)
 
     this.fb = new FB({
       access_token: data.credentials.token,
-      fields: ['first_name', 'last_name', 'picture']
+      fields: ['first_name', 'last_name', 'picture', 'id']
+    })
+    this.fb.promise.then((data) => {
+      const { id } = data
+      const loginObj = Store.get('login')
+
+      if (typeof loginObj === 'object') {
+        loginObj.id = id
+      } else {
+        Store.store('login', { id })
+      }
     })
     Store.store('fb', this.fb)
 
@@ -65,7 +90,7 @@ export default class Login extends Component {
       <FBLogin
         style={this.props.style}
         onLogin={(data) => this.onLogin(data, this.props.onLogin)}
-        onLoginFound={(data) => this.onLogin(data, this.props.onLoginFound)}
+        onLoginFound={(data) => {console.log("onLoginFound"); return this.onLogin(data, this.props.onLoginFound)}}
         onCancel={function(e){ console.log(e) }}
         onPermissionsMissing={function(e){ console.log(e) }} />
     )
