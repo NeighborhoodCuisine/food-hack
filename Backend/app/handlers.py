@@ -38,11 +38,6 @@ class Match(Resource):
         else:
             return {}
 
-    @classmethod
-    def old_code(self):
-        ingredients = ','.join(active_users.joined_ingredients())
-        recipe = RecipeProvider.best_recipe(ingredients)
-
 
 class NearByUsers(Resource):
     @staticmethod
