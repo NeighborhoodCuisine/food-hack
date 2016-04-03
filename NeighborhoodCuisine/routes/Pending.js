@@ -39,8 +39,8 @@ export default class Pending extends Component {
 
   constructor() {
     super()
-    this.fetchMatches()
     this.time = 0
+    this.fetchMatches()
   }
 
   routeToMatch(data) {
