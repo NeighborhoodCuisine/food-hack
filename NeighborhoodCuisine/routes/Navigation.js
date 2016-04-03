@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   navigator: {
-    flexWrap: 'wrap',
-    flexDirection: 'column'
+    // flexWrap: 'wrap',
+    // flexDirection: 'column'
   },
   scene: {
     flex: 1,
