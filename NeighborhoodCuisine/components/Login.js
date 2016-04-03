@@ -50,6 +50,7 @@ export default class Login extends Component {
     // --- post user data and location to server
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        Store.store('position', position)
         this.fb.promise
           .then((userData) => {
             fetch(ENDPOINT + '/user', {
