@@ -15,6 +15,9 @@ export default class Login extends Component {
     console.log('Facebook Data', data)
     Store.store('login', data)
 
+    // Login to app before posting data to backend
+    callback()
+
     // --- post user data and location to server
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -43,7 +46,7 @@ export default class Login extends Component {
               lon: position.coords.longitude
             }
           })
-        }).then(callback)
+        })
       },
       (error) => console.error(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
