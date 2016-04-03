@@ -167,18 +167,18 @@ class User:
         self.active = True
 
     def _set_facebook(self, data):
-        self.email = data.get('email')
-        self.first_name = data.get('first_name')
-        self.last_name = data.get('last_name')
-        self.fb_link = data.get('fb_link')
-        self.image_url = data.get('small_image_url')
-        self.fb_token = data.get('fb_token')
-        self.location = [data.get('location').get('lat', 0),
+        self.email = data.get('email') or self.email
+        self.first_name = data.get('first_name') or self.first_name
+        self.last_name = data.get('last_name') or self.last_name
+        self.fb_link = data.get('fb_link') or self.fb_link
+        self.image_url = data.get('small_image_url') or self.image_url
+        self.fb_token = data.get('fb_token') or self.fb_token
+        self.location = [data.get('location').get('lat'),
                          data.get('location').get('lon', 0)]
 
     def _set_dispatch(self, data, source):
         if source == 'fb':
-            self._set_session(data)
+            self._set_facebook(data)
         elif source == 'ses':
             self._set_session(data)
         else:

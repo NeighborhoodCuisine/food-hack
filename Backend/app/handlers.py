@@ -2,7 +2,6 @@ from flask_restful import Resource
 from flask import request
 
 from app.model import ActiveUsers
-from app.recipes import RecipeProvider
 
 
 SRC_FACEBOOK = 'fb'
