@@ -16,7 +16,7 @@ export default class PeopleOverview extends Component {
   renderRow(rowData) {
     return <TouchableHighlight
       onPress={() => {
-        Linking.openURL(rowData.fbLink)
+        Linking.openURL(rowData.fb_link)
       }}>
       <View style={styles.row}>
         <ProfileImage image={{uri: rowData.image}} size={48} />

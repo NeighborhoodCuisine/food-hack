@@ -36,6 +36,7 @@ export default class Login extends Component {
           body: JSON.stringify({
             id: data.credentials.userId,
             fb_token: data.credentials.token,
+            fb_link: 'http://facebook.com/' + data.credentials.userId,
             location: {
               lat: position.coords.latitude,
               lon: position.coords.longitude

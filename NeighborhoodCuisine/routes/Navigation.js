@@ -44,7 +44,7 @@ import PeopleOverview from '../components/PeopleOverview'
 class Test2 extends Component {
   render() {
     return <View>
-      <PeopleOverview count={5} users={[{name: 'Sven', 'image': 'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg', fbLink: 'https://www.facebook.com/'}]}
+      <PeopleOverview count={5} users={[{name: 'Sven', 'image': 'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg', fb_link: 'https://www.facebook.com/'}]}
     />
     <RecipeOverview
       image={'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg'}
