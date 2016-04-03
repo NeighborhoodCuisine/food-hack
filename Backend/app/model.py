@@ -110,7 +110,8 @@ class ActiveUsers:
                 'first_name': user.first_name,
                 'last_name': user.last_name,
                 'image': user.image_url,
-                'brings': user.ingredients
+                'brings': user.ingredients,
+                'fb_link': user.fb_link
             })
 
     @classmethod
@@ -130,10 +131,14 @@ class ActiveUsers:
         possible_groups = self._calculate_ingredients(subsets)
         possible_groups.sort(key=lambda r: r['recipe'].get('likes'),
                              reverse=True)
-        best = possible_groups[0]
-        self._enrich_recipe(best['recipe'])
-        print(best)
-        return best
+        if possible_groups:
+            best = possible_groups[0]
+            self._enrich_recipe(best['recipe'])
+            return best
+        else:
+            return {
+                'group': []
+            }
 
 
 class User:
