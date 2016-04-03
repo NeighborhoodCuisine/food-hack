@@ -8,7 +8,6 @@ import React, {
 } from 'react-native'
 import Filter from './Filter'
 import Store from '../lib/Store'
-import FB from '../lib/FB'
 import CommonStyles from '../components/Styles'
 import RecipeOverview from '../components/RecipeOverview'
 import { nearby } from '../lib/Endpoint'
@@ -24,12 +23,7 @@ export default class Main extends Component {
   }
 
   componentWillMount() {
-    this.fb = new FB({
-      access_token: Store.get('login').credentials.token,
-      fields: ['first_name', 'picture']
-    })
-
-    this.fb.promise
+    Store.get('fb').promise
       .then((data) => this.setState({
         picture: { uri: data.picture.data.url },
         name: data.first_name
@@ -38,7 +32,7 @@ export default class Main extends Component {
       .then(() => {
         nearby()
           .then(response => response.json())
-          .then(data => this.setState({ count: data.count }))
+          .then(data => this.setState({ count: data.count - 1 }))
           .catch(() => this.setState({ count: -1 }))
       })
   }
@@ -56,7 +50,7 @@ export default class Main extends Component {
     let people = '' + count + ' hungry people nearby.'
     if (count === 1) {
       people = '1 hungry person nearby.'
-    } else if (count === 0) {
+    } else if (count < 1) {
       people = 'No one hungry nearby.'
     }
 

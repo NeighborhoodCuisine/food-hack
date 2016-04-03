@@ -33,7 +33,7 @@ class MatchBox extends Component {
   }
 }
 
-const TIMEOUT = 1000;
+const TIMEOUT = 2000;
 
 export default class Pending extends Component {
 
