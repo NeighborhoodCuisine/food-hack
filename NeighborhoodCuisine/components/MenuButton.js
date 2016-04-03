@@ -18,7 +18,7 @@ export default class MenuButton extends Component {
 
   render() {
     return (
-      <TouchableHighlight onPress={this.logout.bind(this)}>
+      <TouchableHighlight onPress={this.logout.bind(this)} style={{flex: 1}}>
         <Image style={styles.menuButton} source={require('../images/Logoff.png')} />
       </TouchableHighlight>
     )
@@ -28,6 +28,11 @@ export default class MenuButton extends Component {
 const styles = StyleSheet.create({
   menuButton: {
     marginTop: 10,
-    marginRight: 16
+    marginRight: 16,
+    flex: 0,
+    height: 24,
+    width: 24,
+    resizeMode: 'contain',
+    alignItems: 'flex-end'
   }
 })
