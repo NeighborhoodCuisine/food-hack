@@ -9,6 +9,23 @@ export default class RecipeOverview extends Component {
   onShow() {
     Linking.openURL(this.props.recipeUrl)
   }
+
+  renderIngredient(ingredient, style) {
+    return <Text key={ingredient} style={[s.ingredientText, style]}>{ingredient}</Text>
+  }
+
+  renderMissingIngredient(ingredient) {
+    return this.renderIngredient(ingredient, s.missing)
+  }
+
+  renderMissingIngredients() {
+    return this.props.missing.map(this.renderMissingIngredient.bind(this))
+  }
+
+  renderIngredients() {
+    return this.renderMissingIngredients()
+  }
+
   render() {
     return (
       <View>
@@ -23,8 +40,7 @@ export default class RecipeOverview extends Component {
           <View style={styles.cardStyle}>
             <Image source={{uri : this.props.image}} style={styles.cardImageStyle} />
             <Text style={styles.cardTitleStyle}>{this.props.title}</Text>
-            <Image style={styles.cardIconStyle} source={require('../images/Likes.png')}/>
-            <Text style={styles.cardBodyStyle}>{this.props.likes}</Text>
+            {this.renderIngredients()}
             <TouchableHighlight onPress={this.onShow.bind(this)}>
               <View style={[styles.cardActionStyle, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                 <Text style={{}}>Show Recipe</Text>
@@ -38,6 +54,9 @@ export default class RecipeOverview extends Component {
   }
 }
 
+// <Image style={styles.cardIconStyle} source={require('../images/Likes.png')}/>
+// <Text style={styles.cardBodyStyle}>{this.props.likes}</Text>
+
 import { CardStyles } from './Styles'
 const styles = CardStyles
 const backgroundHungry = {
@@ -47,4 +66,16 @@ const backgroundHungry = {
 const recipeText = {
   marginTop: 12,
   marginLeft: 8
+}
+const s = {
+  ingredientText: {
+    padding: 8,
+    left: 20
+  },
+  missing: {
+    color: '#E53935'
+  },
+  present: {
+    color: 'green'
+  }
 }

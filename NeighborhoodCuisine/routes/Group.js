@@ -25,6 +25,7 @@ export default class Group extends Component {
           image={this.props.groupData.recipe.image}
           title={this.props.groupData.recipe.title}
           cuisine={''}
+          missing={this.props.groupData.missing}
           recipeUrl={this.props.groupData.recipe.sourceUrl}
         />
       </ScrollView>
