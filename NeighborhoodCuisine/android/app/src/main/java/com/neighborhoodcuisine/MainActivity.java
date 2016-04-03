@@ -1,6 +1,7 @@
 package com.neighborhoodcuisine;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -39,7 +40,11 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new ReactMaterialKitPackage(),
             new MainReactPackage(),
+<<<<<<< HEAD
+            new VectorIconsPackage(),
+=======
             new RCTCameraPackage(),
+>>>>>>> ea25375942083dead761ad5e512d5b534b27f595
             new FacebookLoginPackage()
         );
     }

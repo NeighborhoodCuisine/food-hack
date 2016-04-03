@@ -11,7 +11,7 @@ export default {
   subheading: {
     fontSize: 15,
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 20
   },
   textPadding: {
     paddingLeft: 12,
