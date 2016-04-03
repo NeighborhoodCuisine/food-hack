@@ -15,6 +15,7 @@ class InitUser(Resource):
     def put():
         data = request.get_json()
         print(data)
+        Match.cache = None
         active_users.add_user(data, SRC_FACEBOOK)
 
 
@@ -23,6 +24,7 @@ class Session(Resource):
     def put():
         data = request.get_json()
         print(data)
+        Match.cache = None
         active_users.add_user(data, SRC_SESSION)
 
 
