@@ -46,7 +46,7 @@ export default class RecipeOverview extends Component {
             <Text style={styles.cardTitleStyle}>{this.props.title}</Text>
             <Text style={[styles.cardSubtitleStyle, {marginTop: 12}]}>Missing Ingredients for the recipe:</Text>
             {this.renderIngredients()}
-            <TouchableHighlight onPress={this.onShow.bind(this)}>
+            <TouchableHighlight onPress={this.onShow.bind(this)} underlayColor='white'>
               <View style={[styles.cardActionStyle, { flexDirection: 'row', justifyContent: 'flex-end' }]}>
                 <Text style={{}}>Show Recipe</Text>
                 <Image source={require('../images/Arrow-Right.png')} style={{height: 16, marginTop: 1, resizeMode: 'contain'}} />
