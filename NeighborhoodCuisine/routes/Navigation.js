@@ -8,6 +8,7 @@ import React, {
   ScrollView,
   TouchableHighlight } from 'react-native'
 import Welcome from './Welcome'
+import Main from './Main'
 import MenuButton from '../components/MenuButton'
 import CommonStyles from '../components/Styles'
 

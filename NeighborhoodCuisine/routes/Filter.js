@@ -8,7 +8,8 @@ import React, {
   StyleSheet,
   TextInput
 } from 'react-native'
-
+import CommonStyles from '../components/Styles'
+import Pending from './Pending'
 
 class RemoveIngredient extends Component {
   onPressRemove() {
@@ -64,6 +65,14 @@ class IngredientSelection extends Component {
     };
   }
 
+  routeToPending() {
+    this.props.navigator.push({
+      name: 'Pending',
+      component: Pending,
+      title: 'Match not found yet.'
+    })
+  }
+
   add(ingredientName) {
     var newIngredients = this.state.ingredients.concat([ingredientName]);
     this.setState({
@@ -84,18 +93,26 @@ class IngredientSelection extends Component {
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData, sectionID, rowID) => {
-          if(parseInt(rowID) + 1 === this.state.dataSource.getRowCount()) {
-            return <AddIngredient add={this.add.bind(this)}/>
-          } else {
-            return <RemoveIngredient text={rowData} remove={this.remove.bind(this)}/>
-          }
-        }}
-        style={styles.list}
-        scrollEnabled={false}
-      />
+      <View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData, sectionID, rowID) => {
+            if(parseInt(rowID) + 1 === this.state.dataSource.getRowCount()) {
+              return <AddIngredient add={this.add.bind(this)}/>
+            } else {
+              return <RemoveIngredient text={rowData} remove={this.remove.bind(this)}/>
+            }
+          }}
+          style={styles.list}
+          scrollEnabled={false}
+        />
+        <View style={styles.button}>
+          <TouchableHighlight style={styles.buttonPending}
+            onPress={this.routeToPending.bind(this)}>
+            <Text style={[CommonStyles.text, styles.go]}>Match me!</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     )
   }
 }
@@ -104,7 +121,7 @@ export default class Filter extends Component {
   render() {
     return (
       <View>
-        <IngredientSelection />
+        <IngredientSelection navigator={this.props.navigator}/>
       </View>
     )
   }
@@ -137,5 +154,17 @@ const styles = StyleSheet.create({
   right: {
     textAlign: 'right',
     flex: 0.2
+  },
+  buttonPending: {
+    top: 320,
+    backgroundColor: '#6C56B7',
+    borderRadius: 50,
+    padding: 16,
+    width: 150,
+    marginHorizontal: 100
+  },
+  go: {
+    fontSize: 18,
+    textAlign: 'center'
   }
 });
