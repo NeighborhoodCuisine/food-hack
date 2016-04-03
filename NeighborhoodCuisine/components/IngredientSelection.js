@@ -73,7 +73,7 @@ class RemoveIngredient extends Component {
       <View style={styles.cell}>
         <Text style={[styles.left, styles.ingredient]}>{this.props.text}</Text>
         <TouchableHighlight onPress={this.onPressRemove.bind(this)} underlayColor='white'>
-          <Icon name='minus-circle' size={25} color='#B82234' style={styles.right}/>
+          <Icon name='minus-circle' size={45} color='#B82234' style={styles.right}/>
         </TouchableHighlight>
       </View>
     );
@@ -91,7 +91,7 @@ class AddIngredient extends Component {
       this.props.add(this.state.text);
     }
   }
-  
+
   render() {
     return (
       <View style={[styles.cell, styles.lastCell]}>
@@ -102,7 +102,7 @@ class AddIngredient extends Component {
           autoFocus={true}
         />
         <TouchableHighlight onPress={this.onPressAdd.bind(this)} underlayColor='white'>
-          <Icon name='plus-circle' size={25} color='#68A026' style={styles.right}/>
+          <Icon name='plus-circle' size={45} color='#68A026' style={styles.right}/>
         </TouchableHighlight>
       </View>
     );
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   cell: {
     alignItems: 'center',
     flexDirection: 'row',
-    height: 50,
+    height: 70,
     borderBottomWidth: 1,
     borderColor: '#CCC'
   },

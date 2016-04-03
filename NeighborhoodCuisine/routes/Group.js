@@ -18,12 +18,13 @@ export default class Group extends Component {
     console.log(this.props.groupData)
 
     return (
-      <ScrollView>
+      <ScrollView style={{height: 500, flex: 1, flexDirection: 'column'}}>
         <PeopleOverview
           count={this.props.groupData.group.length} users={this.props.groupData.group} />
         <RecipeOverview
           image={this.props.groupData.recipe.image}
           title={this.props.groupData.recipe.title}
+          extendedIngredients={this.props.groupData.recipe.extendedIngredients}
           cuisine={''}
           missing={this.props.groupData.missing}
           recipeUrl={this.props.groupData.recipe.sourceUrl}
