@@ -15,6 +15,7 @@ class InitUser(Resource):
     @staticmethod
     def put():
         data = request.get_json()
+        print(data)
         active_users.add_user(data, SRC_FACEBOOK)
 
 
@@ -22,6 +23,7 @@ class Session(Resource):
     @staticmethod
     def put():
         data = request.get_json()
+        print(data)
         active_users.add_user(data, SRC_SESSION)
 
 
@@ -33,7 +35,7 @@ class Match(Resource):
         if user in [u.identifier for u in data['group']]:
             active_users.enrich_missing_ingredients(data)
             active_users.enrich_user_data(data)
-            print(data)
+            print(data['group'])
             return data
         else:
             return {}
