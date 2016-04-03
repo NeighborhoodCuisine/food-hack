@@ -7,6 +7,7 @@ import IngredientSelection from '../components/IngredientSelection'
 import HostSelection from '../components/HostSelection'
 import MatchButton from '../components/MatchButton'
 import Pending from './Pending'
+import {ENDPOINT} from '../lib/Endpoint'
 
 
 export default class Filter extends Component {
@@ -18,8 +19,24 @@ export default class Filter extends Component {
     }
   }
 
+  putSession() {
+    fetch(ENDPOINT + '/session', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        max_guests: this.state.guests,
+        ingredients: this.state.ingredients
+      })
+    });
+
+    console.log(this.state);
+  }
+
   routeToPending() {
-    console.log(this.state)
+    this.putSession();
+
     this.props.navigator.push({
       name: 'Pending',
       component: Pending,

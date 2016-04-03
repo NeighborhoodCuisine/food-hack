@@ -1,6 +1,6 @@
 import Store from './Store'
 
-export const ENDPOINT = 'http://87.106.89.243:8080'
+export const ENDPOINT = 'http://87.106.89.243:8080';
 
 function getWithId(route) {
   return fetch(ENDPOINT + '/' + route, {

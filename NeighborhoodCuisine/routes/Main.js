@@ -66,8 +66,8 @@ export default class Main extends Component {
       <Text style={[CommonStyles.text, CommonStyles.heading]}>Hi {this.state.name},</Text>
       <Text style={[CommonStyles.text, CommonStyles.heading]}>are you hungry?</Text>
 
-      <View style={styles.button}>
-        <TouchableHighlight
+      <View >
+        <TouchableHighlight style={styles.button} underlayColor='#EF5350'
           onPress={this.routeToFilter.bind(this)}>
           <Text style={[CommonStyles.text, styles.go]}>Let's cook!</Text>
         </TouchableHighlight>
@@ -80,13 +80,14 @@ export default class Main extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    top: 50,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   button: {
-    marginTop: 78,
-    backgroundColor: '#6C56B7',
+    marginTop: 70,
+    backgroundColor: '#E53935',
     borderRadius: 50,
     padding: 16
   },
@@ -94,6 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   highlighted: {
-    marginTop: 4
+    marginTop: 10
   }
 });

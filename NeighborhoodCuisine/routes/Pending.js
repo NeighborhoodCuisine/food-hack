@@ -6,37 +6,27 @@ import React, {
   Text,
   TouchableHighlight,
   StyleSheet,
-  TextInput
+  TextInput,
+  ActivityIndicatorIOS
 } from 'react-native'
 import _ from 'lodash'
-
-var ProgressBar = require('ProgressBarAndroid');
-
 import Group from './Group'
-import { getMatch } from '../lib/Endpoint'
-
-class Spinner extends Component {
-  render() {
-    return (
-        <ProgressBar color="#ffffff"/>
-    );
-  }
-}
+import {getMatch} from '../lib/Endpoint'
+import Progress from '../components/Progress'
 
 class PendingText extends Component {
   render() {
     return (
-        <Text style={styles.pendingText}>Finding something to cook!</Text>
+      <Text style={styles.pendingText}>Finding something to cook!</Text>
     );
   }
 }
 
 class MatchBox extends Component {
-
   render() {
     return (
       <View style={styles.matchBox}>
-        <Spinner/>
+        <Progress/>
         <PendingText/>
       </View>
     )
@@ -60,7 +50,7 @@ export default class Pending extends Component {
       component: Group,
       hideLeft: true,
       hideTitle: true,
-      passProps: { groupData: data },
+      passProps: {groupData: data},
       backgroundImage: require('../images/Background-Hungry.png')
     })
   }
@@ -104,6 +94,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 22,
     textAlign: 'center',
-    marginTop: 30
+    marginTop: 10
   }
 });

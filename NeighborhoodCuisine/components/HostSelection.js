@@ -11,7 +11,7 @@ export default class HostSelection extends Component {
     super();
     this.state = {
       peopleHosted: 0,
-      pickerItems: ["Don't host", 3, 4, 5, 6, 7, 8, 9, 10]
+      pickerItems: ["I don't want to host", 3, 4, 5, 6, 7, 8, 9, 10]
         .map((d) => <Picker.Item key={d} value={d.toString()} label={d.toString()}/>)
     }
   }
@@ -19,7 +19,7 @@ export default class HostSelection extends Component {
   render() {
     return (
       <View style={this.props.style}>
-        <Text style={styles.header}>How many people would you host?</Text>
+        <Text style={styles.header}>How many guests would you host?</Text>
         <View style={styles.pickerContainer}>
           <Picker style={styles.picker} itemStyle={{fontSize: 14}}
                   selectedValue={this.state.peopleHosted}
