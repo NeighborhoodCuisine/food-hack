@@ -107,7 +107,12 @@ class ActiveUsers:
     def enrich_user_data(cls, data):
         users = copy.deepcopy(data['group'])
         data['group'] = []
+        guests = 0
+        host = None
         for user in users:
+            if user.max_guests > guests:
+                guests = user.max_guests
+                host = user
             data['group'].append({
                 'id': user.identifier,
                 'first_name': user.first_name,
@@ -116,6 +121,16 @@ class ActiveUsers:
                 'brings': user.ingredients,
                 'fb_link': user.fb_link
             })
+        if host is None:
+            return
+        data['host'] = {
+            'position': {
+                'lat': user.location[0],
+                'lon': user.location[0]
+            },
+            'first_name': user.first_name,
+            'last_name': user.last_name
+        }
 
     @classmethod
     def enrich_missing_ingredients(cls, data):
