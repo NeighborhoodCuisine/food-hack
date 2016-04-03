@@ -39,6 +39,18 @@ export default class Navigation extends Component {
   }
 }
 
+import RecipeOverview from '../components/RecipeOverview'
+
+class Test extends Component {
+  render() {
+    return <RecipeOverview
+      image={'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg'}
+      title={"ChickenCurry"}
+      cuisine={"Indian"}
+      onShow={() => { this.props.navigator.push({ name: Welcome, component: Welcome })}}
+    />
+  }
+}
 const styles = StyleSheet.create({
   container: {
     // alignItems: 'center'
@@ -53,8 +65,8 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   navigator: {
-    flexWrap: 'wrap',
-    flexDirection: 'column'
+    // flexWrap: 'wrap',
+    // flexDirection: 'column'
   },
   scene: {
     flex: 1,

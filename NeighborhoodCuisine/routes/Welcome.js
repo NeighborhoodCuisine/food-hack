@@ -8,7 +8,6 @@ import React, { Component,
 import Main from './Main'
 import CommonStyles from '../components/Styles'
 import Login from '../components/Login'
-// const { FBLoginManager } = NativeModules
 
 export default class Welcome extends Component {
   routeToMain() {
