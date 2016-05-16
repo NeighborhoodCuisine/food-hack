@@ -12,11 +12,14 @@ export default class MatchButton extends Component {
   render() {
     return (
       <View style={styles.buttonContainer}>
-        <TouchableHighlight style={styles.button} onPress={this.props.onPress} underlayColor='#EF5350'>
+        <TouchableHighlight
+           style={styles.button}
+           onPress={this.props.onPress}
+           underlayColor='#EF5350'>
           <Text style={[CommonStyles.text, styles.go]}>Match me!</Text>
         </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
@@ -35,4 +38,4 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 150
   }
-});
+})

@@ -1,4 +1,10 @@
-import React, { View, Component, Image, StyleSheet, TouchableHighlight, LinkingIOS, Text } from 'react-native'
+import React, { View,
+                Component,
+                Image,
+                StyleSheet,
+                TouchableHighlight,
+                LinkingIOS,
+                Text } from 'react-native'
 import Store from '../lib/Store.js'
 
 export default class HostRoute extends Component {
@@ -7,22 +13,25 @@ export default class HostRoute extends Component {
     const myPos = Store.get('position')
     const hostPos = this.props.position
 
-    var url = `http://maps.apple.com/?saddr=${myPos.lat},${myPos.long}&daddr=${hostPos.lat},${hostPos.lon}`;
-    LinkingIOS.openURL(url);
+    var url = `http://maps.apple.com/?saddr=${myPos.lat},`
+      + `${myPos.long}&daddr=${hostPos.lat},${hostPos.lon}`
+    LinkingIOS.openURL(url)
   }
-
 
   render() {
     return (
       <View>
         <View style={{
-          flexDirection: 'row',
-          left: 20,
-        }}>
+                flexDirection: 'row',
+                left: 20
+              }}>
         </View>
         <View style={styles.cardActionStyle}>
           <View style={styles.cardStyle}>
-            <TouchableHighlight style={s.touch} onPress={this.route.bind(this)} underlayColor='white'>
+            <TouchableHighlight
+               style={s.touch}
+               onPress={this.route.bind(this)}
+               underlayColor='white'>
               <Text style={s.text}>Directions to host</Text>
             </TouchableHighlight>
           </View>
@@ -61,5 +70,4 @@ const s = {
   text: {
     fontSize: 18
   }
-
 }

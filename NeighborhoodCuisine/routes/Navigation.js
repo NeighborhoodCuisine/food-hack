@@ -12,6 +12,8 @@ import Welcome from './Welcome'
 import Main from './Main'
 import MenuButton from '../components/MenuButton'
 import CommonStyles from '../components/Styles'
+import RecipeOverview from '../components/RecipeOverview'
+import PeopleOverview from '../components/PeopleOverview'
 
 export default class Navigation extends Component {
 
@@ -49,7 +51,7 @@ export default class Navigation extends Component {
       <Image style={styles.overlay} source={backgroundImage} />
       <Image style={styles.overlay} source={require('../images/Overlay.png')} />
       <View style={styles.scene}>
-        <RouteComponent navigator={navigator} {...route.passProps} />
+          <RouteComponent navigator={navigator} {...route.passProps} />
       </View>
     </View>
   }
@@ -63,30 +65,6 @@ export default class Navigation extends Component {
   }
 }
 
-import RecipeOverview from '../components/RecipeOverview'
-import PeopleOverview from '../components/PeopleOverview'
-
-class Test2 extends Component {
-  render() {
-    return <View>
-      <PeopleOverview count={5} users={[{name: 'Sven', 'image': 'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg', fb_link: 'https://www.facebook.com/'}]}
-    />
-    <RecipeOverview
-      image={'http://stockfresh.com/files/i/icefront/m/41/351572_stock-photo-party-food.jpg'}
-      title={"ChickenCurry"}
-      cuisine={"Indian"}
-      recipeUrl={"http://google.com"}
-    />
-    </View>
-  }
-}
-
-
-class Test extends Component {
-  render() {
-    return
-  }
-}
 const styles = StyleSheet.create({
   container: {
     // alignItems: 'center'
@@ -115,7 +93,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     width: 60
   }
-});
+})
 
 const routeMapper = {
   LeftButton(route, navigator, index, navState) {
@@ -154,4 +132,4 @@ const routeMapper = {
     const title = route.title || 'Neighborhood Cuisine'
     return <Text style={[CommonStyles.text, styles.title]}>{title}</Text>
   }
-};
+}
